@@ -11,15 +11,19 @@ import (
 	"strings"
 )
 
-func Day1() {
-	fmt.Println("Advent of code 2024 Day 1")
+func Day1() (int, error) {
+	fmt.Println("Advent of code 2024 Day 1: go")
+	lists := loadLists("lists.txt")
+	return getSumOfDistancesOfListsText(lists)
+}
 
-	_, filename, _, _ := runtime.Caller(0)
-	pkgDir := filepath.Dir(filename)
-	bytes, err := os.ReadFile(filepath.Join(pkgDir, "data", "lists.txt"))
+func getSumOfDistancesOfListsText(lists string) (int, error) {
+	list1, list2, err := splitAndSortLists(lists)
 	check(err)
+	return getSumOfDistances(list1, list2)
+}
 
-	lists := string(bytes)
+func splitAndSortLists(lists string) ([]int, []int, error) {
 	var list1 []int
 	var list2 []int
 
@@ -36,7 +40,7 @@ func Day1() {
 	}
 	if err := scanner.Err(); err != nil {
 		fmt.Printf("error occurred: %v\n", err)
-		return
+		return nil, nil, err
 	}
 
 	sort.Slice(list1, func(i, j int) bool {
@@ -47,12 +51,28 @@ func Day1() {
 		return list2[i] < list2[j]
 	})
 
+	return list1, list2, nil
+}
+
+func getSumOfDistances(list1 []int, list2 []int) (int, error) {
+
 	distance := 0
 	for i := range list1 {
 		d := abs(list1[i] - list2[i])
 		distance = distance + d
 	}
 	fmt.Printf("distance: %d\n", distance)
+	return distance, nil
+}
+
+func loadLists(listsFileName string) string {
+	_, filename, _, _ := runtime.Caller(0)
+	pkgDir := filepath.Dir(filename)
+	bytes, err := os.ReadFile(filepath.Join(pkgDir, "data", listsFileName))
+	check(err)
+
+	lists := string(bytes)
+	return lists
 }
 
 func abs(x int) int {
@@ -60,10 +80,6 @@ func abs(x int) int {
 		return -x
 	}
 	return x
-}
-
-func getChar(str string, index int) rune {
-	return []rune(str)[index]
 }
 
 func check(e error) {
