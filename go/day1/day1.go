@@ -4,16 +4,15 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"path/filepath"
-	"runtime"
 	"sort"
 	"strconv"
 	"strings"
 )
 
+const DATA_FILE_PATH = "../data/day1/lists.txt"
+
 func Day1() (int, error) {
-	fmt.Println("Advent of code 2024 Day 1: go")
-	lists := loadLists("lists.txt")
+	lists := loadLists(DATA_FILE_PATH)
 	return getSumOfDistancesOfListsText(lists)
 }
 
@@ -65,10 +64,8 @@ func getSumOfDistances(list1 []int, list2 []int) (int, error) {
 	return distance, nil
 }
 
-func loadLists(listsFileName string) string {
-	_, filename, _, _ := runtime.Caller(0)
-	pkgDir := filepath.Dir(filename)
-	bytes, err := os.ReadFile(filepath.Join(pkgDir, "data", listsFileName))
+func loadLists(file_path string) string {
+	bytes, err := os.ReadFile(file_path)
 	check(err)
 
 	lists := string(bytes)
