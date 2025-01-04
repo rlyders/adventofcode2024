@@ -4,6 +4,11 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+askama = "0.12.1"
+axum = { version = "0.8.1", features = ["macros"] }
+tokio = { version = "1.42.0", features = ["rt", "rt-multi-thread", "macros"] }
+lazy_static = { version = "1.5.0", features = ["spin_no_std"] }
+serde = {version = "1.0.217", features = ["serde_derive"]}
 
 [[bin]]
 name = "adventofcode"

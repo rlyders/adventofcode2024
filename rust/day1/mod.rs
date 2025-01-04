@@ -10,7 +10,7 @@ pub fn main() {
     println!("Sum of differences in x: {}", sum);
 }
 
-fn sum_differences(x: Vec<i32>, y: Vec<i32>) -> i32 {
+pub fn sum_differences(x: Vec<i32>, y: Vec<i32>) -> i32 {
     // loop through the x vector and sum the differences between each element
     let mut sum = 0;
     for i in 0..x.len() {
@@ -21,7 +21,7 @@ fn sum_differences(x: Vec<i32>, y: Vec<i32>) -> i32 {
 }
 
 // convert multi-line string into a two sorted vectors of integers 
-fn parse_data_and_sort(data: &str) -> (Vec<i32>,Vec<i32>)  {
+pub fn parse_data_and_sort(data: &str) -> (Vec<i32>,Vec<i32>)  {
     // split the data into lines and collect them into a vector
     let data: Vec<String> = data.lines().map(|x| x.to_string()).collect();
     // split each line of the data into two integers separated by spaces and collect them into two separate vectors
