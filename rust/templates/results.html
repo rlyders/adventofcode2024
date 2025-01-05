@@ -1,0 +1,71 @@
+<div class="text-left w-full">
+  <h3 class="text-lg font-semibold ml-3 text-slate-800">
+    Sum of distances: {{sum_of_distances}}
+  </h3>
+  <p class="text-slate-500 mb-5 ml-3 w-full ">
+    The total sum of distances is calculated as follows:
+    <ul class="max-w-full p-5 space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400">
+      <li>Split each row of two numbers into separate lists, list A and list B, with one number per row</li>
+      <li>Sort each list individually in ascending order</li>
+      <li>Loop over the lists and calculate the absolute difference between the location in list A with the location in list B</li>
+      <li>Sum up the differences</li>
+    </ul>
+  </p>
+</div>
+<div
+  class="relative flex flex-col w-full h-full overflow-scroll text-gray-700 bg-white shadow-md rounded-lg bg-clip-border"
+>
+  <table id="productTable" class="w-full text-left table-auto min-w-max">
+    <thead>
+      <tr>
+        <th class="p-4 border-b border-slate-300 bg-slate-50">
+          <p class="block text-sm font-normal leading-none text-slate-500">
+            Location A
+          </p>
+        </th>
+        <th class="p-4 border-b border-slate-300 bg-slate-50">
+          <p class="block text-sm font-normal leading-none text-slate-500">
+            Location B
+          </p>
+        </th>
+        <th class="p-4 border-b border-slate-300 bg-slate-50">
+          <p class="block text-sm font-normal leading-none text-slate-500">
+            Distance
+          </p>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for p in sorted_location_pairs %}
+
+      <tr class="hover:bg-slate-50">
+        <td class="p-4 border-b border-slate-200">
+          <p class="block text-sm text-slate-800">{{ p.location_a }}</p>
+        </td>
+        <td class="p-4 border-b border-slate-200">
+          <p class="block text-sm text-slate-800">{{ p.location_b }}</p>
+        </td>
+        <td class="p-4 border-b border-slate-200">
+          <p class="block text-sm text-slate-800">{{ p.distance }}</p>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+    <tfoot>
+      <tr>
+        <td
+          colspan="2"
+          class="p-4 text-left font-bold text-slate-800 border-t border-slate-300"
+        >
+          Total:
+        </td>
+        <td
+          colspan="1"
+          class="p-4 font-bold text-slate-800 border-t border-slate-300"
+        >
+          {{sum_of_distances}}
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+</div>

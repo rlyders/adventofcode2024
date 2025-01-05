@@ -3,18 +3,17 @@ mod day1;
 use askama::Template;
 use axum::{
     extract::Form,
-    http::StatusCode,
-    response::{Html, Response},
+    response::{Html, Json},
     routing::{get, post},
     Router,
 };
 use lazy_static::lazy_static;
 use std::sync::Mutex;
-use axum::{handler, debug_handler, extract::State};
+use day1::SumOfDistancesResults;
 
 // Define a global shared state for storing location lists
 lazy_static! {
-    static ref LOCATION_PAIRS: Mutex<String> = Mutex::new(String::from("3   4
+    static ref LOCATION_COLUMNS: Mutex<String> = Mutex::new(String::from("3   4
 4   3
 2   5
 1   3
@@ -25,9 +24,8 @@ lazy_static! {
 // Define the HTML template using Askama
 #[derive(Template)]
 #[template(path = "sum_of_distances.html")] // using the template in this path, relative
-
 struct LocationPairs<'a> {
-    location_pairs: &'a String,
+    location_columns: &'a String,
     sum_of_distances: &'a i32
 }
 
@@ -45,10 +43,10 @@ async fn main() {
 
 // Handler to display tasks
 async fn show_location_pairs() -> Html<String> {
-    let location_pairs = LOCATION_PAIRS.lock().unwrap();
+    let location_columns = LOCATION_COLUMNS.lock().unwrap();
     let tot_sum_of_distances = 0;
     let template = LocationPairs {
-        location_pairs: &location_pairs,
+        location_columns: &location_columns,
         sum_of_distances: &tot_sum_of_distances
     };
     Html(template.render().unwrap())
@@ -56,18 +54,15 @@ async fn show_location_pairs() -> Html<String> {
 
 // create axum handler that accepts form data from a POST and returns a response of an integer
 #[axum::debug_handler]
-async fn sum_of_distances(Form(input): Form<NewLocationPairs>) -> String {
-    let (x,y) = day1::parse_data_and_sort(&input.location_pairs.clone());
+async fn sum_of_distances(Form(input): Form<RequestLocationColumns>) -> Html<String> {
+    let location_pairs = day1::parse_data_and_sort(&input.location_columns.clone());
 
-    let sum = day1::sum_differences(x, y);
-    // print the sum of the differences
-    println!("Sum of differences in x: {}", sum);
-
-    sum.to_string()
+    let results: SumOfDistancesResults = day1::sum_differences(location_pairs);
+    Html(results.render().unwrap())
 }
 
 // Structure to receive form data
 #[derive(serde::Deserialize)]
-struct NewLocationPairs {
-    location_pairs: String,
+struct RequestLocationColumns {
+    location_columns: String,
 }
