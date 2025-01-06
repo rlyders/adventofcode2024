@@ -1,5 +1,5 @@
 [package]
-name = "adventofcode"
+name = "adventofcode2024"
 version = "0.1.0"
 edition = "2021"
 
@@ -14,5 +14,5 @@ thousands = "0.2.0"
 serde_yaml = "0.9.34"
 
 [[bin]]
-name = "adventofcode"
+name = "adventofcode2024"
 path = "src/main.rs"
