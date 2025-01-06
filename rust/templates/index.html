@@ -1,14 +1,60 @@
 <!DOCTYPE html>
 {% include "partials/head.html" %}
 <body>
-  {% include "partials/title.html" %} 
-  {% include "partials/description.html" %}
-  <div class="grid grid-cols-2 divide-x p-6">
-    <div class="">
-      {% include "partials/form.html" %}
-      <div id="totals"></div>
-    </div>
+  <h1
+    class="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl md:text-6xl p-6"
+  >
+    <span class="block"> Advent of Code 2024 <br /> </span>
+  </h1>
 
-    <div id="results" class=""></div>
+  <div id="target"
+    class="relative flex flex-col rounded-lg bg-white shadow-sm border border-slate-200"
+  >
+    <nav class="flex min-w-[240px] flex-col gap-1 p-1.5">
+      {% for day in days %}
+        {% set day_num = loop.index %}
+
+      <div
+        role="{% if day.parts.len() == 1 %}button{% endif %}"
+        class="text-slate-800 flex w-full items-center rounded-md p-3 transition-all {% if day.parts.len() == 1 %}hover:bg-slate-100 focus:bg-slate-100 active:bg-slate-100{% endif %}"
+      >
+        <h2
+          class="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl md:text-6xl px-4"
+        >
+          <span class="block">
+            <span
+              class="text-transparent bg-clip-text bg-gradient-to-tr to-cyan-500 from-blue-600 text-2xl sm:text-3xl md:text-4xl"
+            >
+              Day {{ day_num }}:
+            </span>
+            <span class="text-2xl sm:text-3xl md:text-4xl">
+              {{ day.title }}
+            </span>
+          </span>
+        </h2>
+      </div>
+
+      {% if day.parts.len() > 1 %} {% for part in day.parts %}
+      <div
+        role="button"
+        class="text-slate-800 flex w-full items-center rounded-md p-1 transition-all hover:bg-slate-100 focus:bg-slate-100 active:bg-slate-100"
+        hx-get="/day{{ day_num }}/part{{ loop.index }}"
+        hx-target="#target"
+      >
+        <h3
+          class="text-1xl font-bold tracking-tight text-gray-900 sm:text-2xl md:text-3xl px-10"
+        >
+          <span class="block">
+            <span
+              class="text-transparent bg-clip-text bg-gradient-to-tr to-cyan-500 from-blue-600 sm:text-1xl md:text-2xl"
+            >
+              Part {{ part.name }}:
+            </span>
+            <span class="sm:text-1xl md:text-2xl"> {{ part.summary }} </span>
+          </span>
+        </h3>
+      </div>
+      {% endfor %} {% endif %} {% endfor %}
+    </nav>
   </div>
 </body>

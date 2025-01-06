@@ -1,0 +1,8 @@
+---
+days:
+- title: Historian Hysteria
+  parts:
+  - name: one
+    summary: Find the total distance between list A and list B
+  - name: two
+    summary: Calculate a total similarity score between the lists

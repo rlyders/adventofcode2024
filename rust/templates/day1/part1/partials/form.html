@@ -13,7 +13,7 @@
   }
 </script>
 <form
-  hx-post="/sum_of_distances"
+  hx-post="/day1/part1/sum_of_distances"
   hx-target="#results"
   hx-on::before-request="event.detail.xhr.go_time = performance.now()"
   hx-on::after-request="showHtmxElapsed(event.detail.xhr.go_time)"

@@ -10,11 +10,11 @@ use axum::{
 use lazy_static::lazy_static;
 use std::{sync::Mutex, time::SystemTime};
 
-const DATA_FILE_PATH: &str = "../data/day1/lists.txt";
+const DATA_FILE_PATH: &str = "../data/day1/part1/lists.txt";
 
 // Structure to send response of sorted lists and sum of distances
 #[derive(Template)]
-#[template(path = "results.html")] // using the template in this path, relative
+#[template(path = "day1/part1/results.html")] // using the template in this path, relative
 pub struct SumOfDistancesResults {
     pub sorted_location_pairs: Vec<LocationPair>,
     pub sum_of_distances: u32,
@@ -100,26 +100,14 @@ lazy_static! {
 
 // Define the HTML template using Askama
 #[derive(Template)]
-#[template(path = "index.html")] // using the template in this path, relative
+#[template(path = "day1/part1/index.html")] // using the template in this path, relative
 struct LocationPairs<'a> {
     location_columns: &'a String,
     sum_of_distances: &'a u32
 }
 
-#[tokio::main]
-pub async fn main() {
-    // build our application with a route
-    let app = Router::new()
-        .route("/", get(show_location_pairs))
-        .route("/sum_of_distances", post(sum_of_distances));
-
-    // run our app with hyper, listening globally on port 3000
-    let listener = tokio::net::TcpListener::bind("0.0.0.0:3000").await.unwrap();
-    axum::serve(listener, app).await.unwrap();
-}
-
 // Handler to display tasks
-async fn show_location_pairs() -> Html<String> {
+pub async fn day1_part_one() -> Html<String> {
     let location_columns = LOCATION_COLUMNS.lock().unwrap();
     let tot_sum_of_distances = 0;
     let template = LocationPairs {
@@ -131,7 +119,7 @@ async fn show_location_pairs() -> Html<String> {
 
 // create axum handler that accepts form data from a POST and returns a response of an integer
 #[axum::debug_handler]
-async fn sum_of_distances(Form(input): Form<RequestLocationColumns>) -> Html<String> {
+pub async fn sum_of_distances(Form(input): Form<RequestLocationColumns>) -> Html<String> {
     let now = SystemTime::now();
 
     let location_pairs = parse_data_and_sort(&input.location_columns.clone());
@@ -157,7 +145,7 @@ async fn sum_of_distances(Form(input): Form<RequestLocationColumns>) -> Html<Str
 
 // Structure to receive form data
 #[derive(serde::Deserialize)]
-struct RequestLocationColumns {
+pub struct RequestLocationColumns {
     location_columns: String,
 }
 
