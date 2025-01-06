@@ -1,7 +1,7 @@
 package main
 
-import "github.com/rlyders/adventofcode/day1"
+import "github.com/rlyders/adventofcode/app/cmd"
 
 func main() {
-	day1.Day1()
+	cmd.Run()
 }

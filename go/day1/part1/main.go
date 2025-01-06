@@ -1,4 +1,4 @@
-package day1
+package part1
 
 import (
 	"bufio"
@@ -11,7 +11,7 @@ import (
 
 const DATA_FILE_PATH = "../data/day1/lists.txt"
 
-func Day1() (int, error) {
+func Run() (int, error) {
 	lists := loadLists(DATA_FILE_PATH)
 	return getSumOfDistancesOfListsText(lists)
 }
