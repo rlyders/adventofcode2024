@@ -164,3 +164,12 @@ sys     0m0.000s
 run: OK
 -------------------------------------------
 ```
+
+# TODOs
+
+## TODO: rust: add unit tests
+
+## TODO: go: add Day 1 Part 2
+
+## TODO: go: add web app
+
