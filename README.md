@@ -104,7 +104,7 @@ run: OK
 
 ### HOW-TO Run go-lang command-line app
 
-prerequisites: go go1.23.4+
+prerequisites: go 1.23.4+
 
 The go-lang app executes the Day 1 Part One challenge using the data file: `./data/day1/lists.txt`
 
