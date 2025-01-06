@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+{% include "partials/head.html" %}
+<body>
+  {% include "partials/title.html" %} 
+  {% include "partials/description.html" %}
+  <div class="grid grid-cols-2 divide-x p-6">
+    <div class="">
+      {% include "partials/form.html" %}
+      <div id="totals"></div>
+    </div>
+
+    <div id="results" class=""></div>
+  </div>
+</body>

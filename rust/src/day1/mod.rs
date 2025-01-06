@@ -1,4 +1,14 @@
+pub mod filters;
+
 use askama::Template;
+use axum::{
+    extract::Form,
+    response::Html,
+    routing::{get, post},
+    Router,
+};
+use lazy_static::lazy_static;
+use std::{sync::Mutex, time::SystemTime};
 
 const DATA_FILE_PATH: &str = "../data/day1/lists.txt";
 
@@ -7,7 +17,9 @@ const DATA_FILE_PATH: &str = "../data/day1/lists.txt";
 #[template(path = "results.html")] // using the template in this path, relative
 pub struct SumOfDistancesResults {
     pub sorted_location_pairs: Vec<LocationPair>,
-    pub sum_of_distances: u32
+    pub sum_of_distances: u32,
+    pub elapsed_ms: u32,
+    pub elapsed_μs: u32
 }
 
 #[derive(serde::Serialize)]
@@ -17,7 +29,7 @@ struct LocationPair {
     distance: u32
 }
 
-pub fn main() {
+pub fn cmd() {
     // call the load_data function to load the data from the lists.txt file
     let location_columns = load_data(DATA_FILE_PATH);
     let location_pairs = parse_data_and_sort(&location_columns);
@@ -36,10 +48,12 @@ pub fn sum_differences(sorted_location_pairs: Vec<(i32, i32)>) -> SumOfDistances
             location_b: b.clone() as u32,
             distance: (a - b).unsigned_abs() as u32
         }).collect(),
-        sum_of_distances: 0
+        sum_of_distances: 0,
+        elapsed_ms: 0,
+        elapsed_μs: 0
     };
     for p in &results.sorted_location_pairs {
-        results.sum_of_distances += p.distance;
+        results.sum_of_distances += p.distance as u32;
     }
     results
 }
@@ -72,6 +86,79 @@ pub fn parse_data_and_sort(location_columns: &str) -> Vec<(i32,i32)> {
 fn load_data(file_path: &str) -> String {
     // read the file and return the contents
     return std::fs::read_to_string(file_path).expect("Error reading file");
+}
+
+// Define a global shared state for storing location lists
+lazy_static! {
+    static ref LOCATION_COLUMNS: Mutex<String> = Mutex::new(String::from("3   4
+4   3
+2   5
+1   3
+3   9
+3   3"));
+}
+
+// Define the HTML template using Askama
+#[derive(Template)]
+#[template(path = "index.html")] // using the template in this path, relative
+struct LocationPairs<'a> {
+    location_columns: &'a String,
+    sum_of_distances: &'a u32
+}
+
+#[tokio::main]
+pub async fn main() {
+    // build our application with a route
+    let app = Router::new()
+        .route("/", get(show_location_pairs))
+        .route("/sum_of_distances", post(sum_of_distances));
+
+    // run our app with hyper, listening globally on port 3000
+    let listener = tokio::net::TcpListener::bind("0.0.0.0:3000").await.unwrap();
+    axum::serve(listener, app).await.unwrap();
+}
+
+// Handler to display tasks
+async fn show_location_pairs() -> Html<String> {
+    let location_columns = LOCATION_COLUMNS.lock().unwrap();
+    let tot_sum_of_distances = 0;
+    let template = LocationPairs {
+        location_columns: &location_columns,
+        sum_of_distances: &tot_sum_of_distances
+    };
+    Html(template.render().unwrap())
+}
+
+// create axum handler that accepts form data from a POST and returns a response of an integer
+#[axum::debug_handler]
+async fn sum_of_distances(Form(input): Form<RequestLocationColumns>) -> Html<String> {
+    let now = SystemTime::now();
+
+    let location_pairs = parse_data_and_sort(&input.location_columns.clone());
+
+    let mut results: SumOfDistancesResults = sum_differences(location_pairs);
+
+    match now.elapsed() {
+        Ok(elapsed) => {
+            results.elapsed_ms = elapsed.as_millis() as u32;
+            println!("elapsed: {} ms", results.elapsed_ms);
+
+            results.elapsed_μs = elapsed.as_micros() as u32;
+            println!("elapsed: {} μs", results.elapsed_μs);
+        }
+        Err(e) => {
+            // an error occurred!
+            println!("Error: {e:?}");
+        }
+    }
+ 
+    Html(results.render().unwrap())    
+}
+
+// Structure to receive form data
+#[derive(serde::Deserialize)]
+struct RequestLocationColumns {
+    location_columns: String,
 }
 
 #[cfg(test)]
