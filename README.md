@@ -13,7 +13,7 @@ GitHub: https://github.com/rlyders/adventofcode2024
 
 For rust, I've completed Day 1 both Part One and Part Two both as a command-line app and as a full-stack web-app using [HTMX](https://htmx.org/) and [Alpine.js](https://alpinejs.dev/).
 
-prerequisites: rust 1.83.0
+prerequisites: rust 1.83.0+
 
 ### HOW-TO Run rust full-stack web app
 
@@ -103,6 +103,8 @@ run: OK
 ```
 
 ### HOW-TO Run go-lang command-line app
+
+prerequisites: go go1.23.4+
 
 The go-lang app executes the Day 1 Part One challenge using the data file: `./data/day1/lists.txt`
 
