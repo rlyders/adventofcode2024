@@ -2,6 +2,7 @@
 name = "adventofcode2024"
 version = "0.1.0"
 edition = "2021"
+default-run = "adventofcode2024"
 
 [dependencies]
 askama = "0.12.1"
@@ -16,3 +17,7 @@ serde_yaml = "0.9.34"
 [[bin]]
 name = "adventofcode2024"
 path = "src/main.rs"
+
+[[bin]]
+name = "cmd"
+path = "src/cmd.rs"

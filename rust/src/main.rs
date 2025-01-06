@@ -1,12 +1,9 @@
 use askama::Template;
 use axum::{
-    extract::Form,
     response::Html,
     routing::{get, post},
     Router,
 };
-use lazy_static::lazy_static;
-use std::{sync::Mutex, time::SystemTime};
 
 mod day1_part_one;
 mod day1_part_two;

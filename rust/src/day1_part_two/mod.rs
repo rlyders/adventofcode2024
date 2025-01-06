@@ -4,13 +4,9 @@ use askama::Template;
 use axum::{
     extract::Form,
     response::Html,
-    routing::{get, post},
-    Router,
 };
 use lazy_static::lazy_static;
 use std::{sync::Mutex, time::SystemTime};
-
-const DATA_FILE_PATH: &str = "../data/day1/part2/lists.txt";
 
 // Structure to send response of sorted lists and sum of distances
 #[derive(Template)]
@@ -27,16 +23,6 @@ struct SimilarityScore {
     location_a: u32,
     found_in_list_b: u32,
     similarity_score: u32
-}
-
-pub fn cmd() {
-    // call the load_data function to load the data from the lists.txt file
-    let location_columns = load_data(DATA_FILE_PATH);
-    let (locations_a, locations_b) = parse_data(&location_columns);
-
-    let sum = sum_similarity_scores(locations_a, locations_b);
-    // print the sum of the differences
-    println!("Sum of differences in x: {}", sum.total_similarity_score);
 }
 
 pub fn sum_similarity_scores(locations_a: Vec<u32>, locations_b: Vec<u32>) -> SimilarityResults {
@@ -162,8 +148,8 @@ mod tests {
         3   9
         3   3";
         let (locations_a, locations_b) = parse_data(&lists);
-        assert_eq!(locations_a, vec![1,2,3,3,3,4]);
-        assert_eq!(locations_b, vec![3,3,3,4,5,9]);
+        assert_eq!(locations_a, vec![3,4,2,1,3,3]);
+        assert_eq!(locations_b, vec![4,3,5,3,9,3]);
     }
 
     #[test]
@@ -172,7 +158,7 @@ mod tests {
         let locations_b: Vec<u32> = vec![3,3,3,4,5,9];
     
         let sum = sum_similarity_scores(locations_a, locations_b);
-        assert_eq!(sum.total_similarity_score, 11)
+        assert_eq!(sum.total_similarity_score, 31)
         }
 
 }

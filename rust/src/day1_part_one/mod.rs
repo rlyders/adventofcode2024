@@ -4,13 +4,9 @@ use askama::Template;
 use axum::{
     extract::Form,
     response::Html,
-    routing::{get, post},
-    Router,
 };
 use lazy_static::lazy_static;
 use std::{sync::Mutex, time::SystemTime};
-
-const DATA_FILE_PATH: &str = "../data/day1/part1/lists.txt";
 
 // Structure to send response of sorted lists and sum of distances
 #[derive(Template)]
@@ -27,16 +23,6 @@ struct LocationPair {
     location_a: u32,
     location_b: u32,
     distance: u32
-}
-
-pub fn cmd() {
-    // call the load_data function to load the data from the lists.txt file
-    let location_columns = load_data(DATA_FILE_PATH);
-    let location_pairs = parse_data_and_sort(&location_columns);
-
-    let sum = sum_differences(location_pairs);
-    // print the sum of the differences
-    println!("Sum of differences in x: {}", sum.sum_of_distances);
 }
 
 pub fn sum_differences(sorted_location_pairs: Vec<(i32, i32)>) -> SumOfDistancesResults {
@@ -83,7 +69,7 @@ pub fn parse_data_and_sort(location_columns: &str) -> Vec<(i32,i32)> {
 }
 
 // function to load a list of strings into a single string from a given file in the data directory
-fn load_data(file_path: &str) -> String {
+pub fn load_data(file_path: &str) -> String {
     // read the file and return the contents
     return std::fs::read_to_string(file_path).expect("Error reading file");
 }
