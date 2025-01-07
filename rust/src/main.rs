@@ -48,7 +48,7 @@ pub async fn main() -> Result<(), Box<dyn std::error::Error>> {
 }
 
 pub async fn home() -> Html<String> {
-    let f = std::fs::File::open("data/advent_of_code_2024.yaml").unwrap();
+    let f: std::fs::File = std::fs::File::open("../data/advent_of_code_2024.yaml").unwrap();
     let advent_of_code: AdventOfCode = serde_yaml::from_reader(f).unwrap();
     // println!("Read YAML string: {}", advent_of_code);
 

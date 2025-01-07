@@ -1,0 +1,52 @@
+{{define "elapsed"}}
+<div class="p-3">
+  <table
+    id="elapsed_time"
+    class="text-left table-auto min-w-max table-auto w-full"
+  >
+    <thead>
+      <tr>
+        <th class="p-2 border-b border-slate-300 bg-slate-50" colspan="3">
+          <span
+            class="block text-sm font-normal leading-none text-slate-500 text-left"
+          >
+          Elapsed time...
+        </span>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="hover:bg-slate-50">
+        <td class="p-2 border-b border-slate-200 text-right">
+          <div class="block text-sm text-slate-800">server:</div>
+        </td>
+        <td class="p-2 border-b border-slate-200 text-right">
+          <div class="block text-sm text-slate-800">
+            {{formatInt .Elapsed_ms}} ms
+          </div>
+        </td>
+        <td class="p-2 border-b border-slate-200 text-right px-6">
+          <div class="block text-sm text-slate-800">
+            ({{formatInt .Elapsed_μs}} μs)
+          </div>
+        </td>
+      </tr>
+      <tr class="hover:bg-slate-50">
+        <td class="p-2 border-b border-slate-200 text-right">
+          <div class="block text-sm text-slate-800">client:</div>
+        </td>
+        <td class="p-2 border-b border-slate-200 text-right">
+          <div class="block text-sm text-slate-800">
+            <div id="client_ms"></div>
+          </div>
+        </td>
+        <td class="p-2 border-b border-slate-200 text-right px-6">
+          <div class="block text-sm text-slate-800">
+            <span>(<span id="client_μs"></span>)</span>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+{{end}}

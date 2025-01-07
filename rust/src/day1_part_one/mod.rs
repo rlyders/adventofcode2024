@@ -106,7 +106,7 @@ pub async fn day1_part_one() -> Html<String> {
 // create axum handler that accepts form data from a POST and returns a response of an integer
 #[axum::debug_handler]
 pub async fn sum_of_distances(Form(input): Form<RequestLocationColumns>) -> Html<String> {
-    let now = SystemTime::now();
+    let now: SystemTime = SystemTime::now();
 
     let location_pairs = parse_data_and_sort(&input.location_columns.clone());
 

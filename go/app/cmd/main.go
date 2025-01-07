@@ -1,9 +1,9 @@
-package cmd
+package main
 
 import (
 	day1 "github.com/rlyders/adventofcode/day1"
 )
 
-func Run() {
+func main() {
 	day1.Run()
 }
