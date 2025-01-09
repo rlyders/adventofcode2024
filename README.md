@@ -51,41 +51,41 @@ When ready, click [Calculate] to process the list of numbers shown.
 
 The rust command-line app executes the Advent Of Code challenges using the data file path passed as the 1st command-line argument. If no command-line argument is passed, then is uses the the first valid path from the following list: `./data`, `../data`
 
-The following script runs the rust command-line app with the default data file and 25,000 iterations.
+The following script runs the rust command-line app with the default data file repeatedly for 50,000 iterations.
 
 ```sh
-./run.sh rust "" 25000
+./run.sh rust "" 50000
 ```
 
 Sample output:
 ```log
-$ ./run.sh rust "" 25000
+$ ./run.sh rust "" 50000
 Valid runtime: rust
 Directory exists: rust
 prog=./target/release/aoc24
 
 ------------- Run with timing -------------
-day1 run: iterations: 25000
-Iterations: 25000 ... all timings shown below are averages
+day1 run: iterations: 50000
+Iterations: 50000 ... all timings shown below are averages
 ------------------------------------------------------------------
       Total Distance:  2,970,687 [raw:    2970687]
 -- Timings: --
-           split and sort:  0 ms [    226 μs;    226,906 ns]
-       calculate distance:  0 ms [      1 μs;      1,893 ns]
-                    total:  0 ms [    229 μs;    229,062 ns]
+           split and sort:  0 ms [     95 μs;     95,566 ns]
+       calculate distance:  0 ms [      2 μs;      2,086 ns]
+                    total:  0 ms [     97 μs;     97,980 ns]
 ------------------------------------------------------------------
-Iterations: 25000 ... all timings shown below are averages
+Iterations: 50000 ... all timings shown below are averages
 ------------------------------------------------------------------
     Total Similarity: 23,963,899 [raw:   23963899]
 -- Timings: --
-           split and sort:  0 ms [     68 μs;     68,848 ns]
-     calculate similarity:  0 ms [      4 μs;      4,464 ns]
-                    total:  0 ms [     73 μs;     73,481 ns]
+           split and sort:  0 ms [     76 μs;     76,348 ns]
+     calculate similarity:  0 ms [      4 μs;      4,513 ns]
+                    total:  0 ms [     81 μs;     81,002 ns]
 ------------------------------------------------------------------
 
-real    0m7.928s
-user    0m4.816s
-sys     0m0.000s
+real    0m9.321s
+user    0m10.343s
+sys     0m0.011s
 run: OK
 -------------------------------------------
 ```
@@ -102,42 +102,42 @@ NOTE: to run the go-lang app, be sure to run the `./go/create-links.sh` Linux sh
 
 The go-lang command-line app executes the Advent Of Code challenges using the data file path passed as the 1st command-line argument. If no command-line argument is passed, then is uses the the first valid path from the following list: `./data`, `../data`
 
-The following script runs the go-lang command-line app with the default data file and 25,000 iterations.
+The following script runs the go-lang command-line app with the default data file repeatedly for 50,000 iterations.
 
 ```sh
-./run.sh go "" 25000
+./run.sh go "" 50000
 ```
 
 Sample output:
 
 ```log
-$ ./run.sh go "" 25000
+$ ./run.sh go "" 50000
 Valid runtime: go
 Directory exists: go
 prog=./app/cmd/bin/aoc24
 
 ------------- Run with timing -------------
 location lists file: ../data/day1/lists.txt
-Iterations: 25000 ... all timings shown below are averages
+Iterations: 50000 ... all timings shown below are averages
 ------------------------------------------------------------------
            Total Distance:  2,970,687 [raw:    2970687]
 -- Timings: --
-           split and sort:  0 ms [    293 μs;     293,589 ns]
-       calculate distance:  0 ms [      6 μs;       6,528 ns]
-                    total:  0 ms [    293 μs;     293,589 ns]
+           split and sort:  0 ms [    244 μs;     244,607 ns]
+       calculate distance:  0 ms [      6 μs;       6,131 ns]
+                    total:  0 ms [    244 μs;     244,607 ns]
 ------------------------------------------------------------------
-Iterations: 25000 ... all timings shown below are averages
+Iterations: 50000 ... all timings shown below are averages
 ------------------------------------------------------------------
          Total Similarity: 23,963,899 [raw:   23963899]
 -- Timings: --
-           split and sort:  0 ms [    358 μs;     358,196 ns]
-     calculate similarity:  0 ms [     44 μs;      44,282 ns]
-                    total:  0 ms [    402 μs;     402,844 ns]
+           split and sort:  0 ms [    300 μs;     300,632 ns]
+     calculate similarity:  0 ms [     36 μs;      36,267 ns]
+                    total:  0 ms [    337 μs;     337,080 ns]
 ------------------------------------------------------------------
 
-real    0m16.906s
-user    0m18.875s
-sys     0m1.191s
+real    0m38.197s
+user    0m38.138s
+sys     0m2.981s
 run: OK
 -------------------------------------------
 ```
