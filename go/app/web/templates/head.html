@@ -1,0 +1,77 @@
+{{define "head"}}
+<head>
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width,
+                                   initial-scale=1.0"
+  />
+  <script
+    src="https://unpkg.com/htmx.org@2.0.4"
+    integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    defer
+    src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+  ></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            clifford: "#da373d",
+          },
+        },
+      },
+    };
+  </script>
+
+  <script>
+    function showHtmxElapsed(startTime) {
+      const clientElapsedms = performance.now() - startTime;
+      const clientElapsedμs = clientElapsedms * 1000;
+      const clientElapsedns = clientElapsedμs * 1000;
+
+      const clientElapsedmsStr =
+        Number(clientElapsedms.toFixed(0)).toLocaleString() + " ms";
+      const clientElapsedμsStr =
+        Number(clientElapsedμs.toFixed(0)).toLocaleString() + " μs";
+      const clientElapsednsStr =
+        Number(clientElapsedns.toFixed(0)).toLocaleString() + " ns";
+
+      document.getElementById("client_ms").innerText = clientElapsedmsStr;
+      document.getElementById("client_μs").innerText = clientElapsedμsStr;
+      document.getElementById("client_ns").innerText = clientElapsednsStr;
+
+      console.log(`client: ${clientElapsedmsStr} (${clientElapsedμsStr})`);
+    }
+  </script>
+
+  <style>
+    .spinner {
+      display: none;
+    }
+
+    .htmx-request .spinner {
+      display: inline;
+    }
+
+    .htmx-request.spinner {
+      display: inline;
+    }
+
+    .htmx-request.spinner ~ .button-text {
+      display: none;
+    }
+  </style>
+</head>
+{{end}}

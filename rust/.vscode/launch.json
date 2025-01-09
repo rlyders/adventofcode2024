@@ -7,11 +7,11 @@
         {
             "type": "lldb",
             "request": "launch",
-            "name": "Debug executable 'adventofcode2024'",
+            "name": "aoc24",
             "cargo": {
                 "args": [
-                    "build",
-                    "--bin=adventofcode2024",
+                    "run",
+                    "--bin=aoc24",
                     "--package=adventofcode2024"
                 ],
                 "filter": {
@@ -25,12 +25,12 @@
         {
             "type": "lldb",
             "request": "launch",
-            "name": "Debug unit tests in executable 'adventofcode2024'",
+            "name": "aoc24-web",
             "cargo": {
                 "args": [
                     "test",
                     "--no-run",
-                    "--bin=adventofcode2024",
+                    "--bin=aoc24-web",
                     "--package=adventofcode2024"
                 ],
                 "filter": {

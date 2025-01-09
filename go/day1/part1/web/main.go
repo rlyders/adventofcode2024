@@ -6,8 +6,7 @@ import (
 	"html/template"
 	"log"
 	"net/http"
-	"os"
-	"time"
+	"strconv"
 
 	"github.com/gorilla/mux"
 	"github.com/rlyders/adventofcode/day1/part1/engine"
@@ -17,15 +16,9 @@ import (
 var tmpl *template.Template
 
 func init() {
-	cwd, err := os.Getwd()
-	if err != nil {
-		log.Println("Failed to get current working directory:", err)
-	} else {
-		log.Println("Current working directory:", cwd)
-	}
-
+	var err error
 	pattern := "day1/part1/web/templates/*.html"
-	tmpl, err = template.New("").Funcs(utils.GetFormatIntFuncMap()).ParseGlob(pattern)
+	tmpl, err = template.New("").Funcs(utils.GetFormatUInt32FuncMap()).Funcs(utils.GetFormatElapsedMillisecondsFuncMap()).Funcs(utils.GetFormatElapsedMicrosecondsFuncMap()).Funcs(utils.GetFormatElapsedNanosecondsFuncMap()).ParseGlob(pattern)
 	if err != nil {
 		log.Fatalf("Error loading templates from '%s': %s", pattern, err.Error())
 	}
@@ -54,25 +47,24 @@ func home(w http.ResponseWriter, r *http.Request) {
 }
 
 func getSumOfDistances(w http.ResponseWriter, r *http.Request) {
-	start := time.Now()
-
 	location_columns := r.FormValue("location_columns")
 
-	list1, list2, err := engine.SplitAndSortLists(location_columns)
-	utils.Check(err)
+	iterations_input := r.FormValue("iterations")
+	iterations, err := strconv.ParseInt(iterations_input, 10, 64)
+	if err != nil {
+		panic(err)
+	}
 
-	results, err := engine.GetSumOfDistances(list1, list2)
-	utils.Check(err)
-
-	elapsed := time.Since(start)
-	results.Elapsed_ms = uint32(elapsed.Milliseconds())
-	results.Elapsed_μs = uint32(elapsed.Microseconds())
+	results, err := engine.GetSimilarityScoreOfListsTextRepeated(location_columns, iterations)
+	utils.Check(err, "GetSumOfDistancesOfListsText")
 
 	var buf bytes.Buffer
 	err = tmpl.ExecuteTemplate(&buf, "results.html", results)
 	if err != nil {
 		// Handle execution error
-		http.Error(w, fmt.Sprintf("Internal Server Error: %s", err), http.StatusInternalServerError)
+		msg := fmt.Sprintf("Internal Server Error: %s", err)
+		fmt.Println(msg)
+		http.Error(w, msg, http.StatusInternalServerError)
 		return
 	}
 	w.Write(buf.Bytes())
@@ -80,5 +72,5 @@ func getSumOfDistances(w http.ResponseWriter, r *http.Request) {
 
 func SetRoutes(router *mux.Router) {
 	router.HandleFunc("/day1/part1", home).Methods("GET")
-	router.HandleFunc("/day1/part1/sum_of_distances", getSumOfDistances).Methods("POST")
+	router.HandleFunc("/day1/part1/calculate", getSumOfDistances).Methods("POST")
 }

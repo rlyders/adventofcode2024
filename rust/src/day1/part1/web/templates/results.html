@@ -1,0 +1,79 @@
+<div
+  class="h-full overflow-scroll text-gray-700 bg-white shadow-md rounded-lg bg-clip-border"
+>
+  <table
+    id="productTable"
+    class="text-left table-auto min-w-max table-auto w-full"
+  >
+    <thead>
+      <tr>
+        <th class="p-2 border-b border-slate-300 bg-slate-50">
+          <p
+            class="block text-sm font-normal leading-none text-slate-500 text-center"
+          >
+            Location A
+          </p>
+        </th>
+        <th class="p-2 border-b border-slate-300 bg-slate-50">
+          <p
+            class="block text-sm font-normal leading-none text-slate-500 text-center"
+          >
+            Location B
+          </p>
+        </th>
+        <th class="p-2 border-b border-slate-300 bg-slate-50">
+          <p
+            class="block text-sm font-normal leading-none text-slate-500 text-center"
+          >
+            Distance
+          </p>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for p in sorted_location_pairs %}
+
+      <tr class="hover:bg-slate-50">
+        <td class="p-2 border-b border-slate-200 text-right">
+          <p class="block text-sm text-slate-800">
+            {{ p.location_a|format_u32 }}
+          </p>
+        </td>
+        <td class="p-2 border-b border-slate-200 text-right">
+          <p class="block text-sm text-slate-800">
+            {{ p.location_b|format_u32 }}
+          </p>
+        </td>
+        <td class="p-2 border-b border-slate-200 text-right">
+          <p class="block text-sm text-slate-800">
+            {{ p.distance|format_u32 }}
+          </p>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+    <tfoot>
+      <tr>
+        <td
+          colspan="2"
+          class="p-2 text-left font-bold text-slate-800 border-t border-slate-300 text-right"
+        >
+          Total:
+        </td>
+        <td
+          colspan="1"
+          class="p-2 font-bold text-slate-800 border-t border-slate-300 text-right"
+        >
+          {{sum_of_distances|format_u32}}
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+<div id="totals" hx-swap-oob="true">
+  <h3 class="text-lg font-semibold ml-3 text-slate-800">
+    Sum of distances: {{sum_of_distances|format_u32}} {% if sum_of_distances >
+    999 %}[raw: {{sum_of_distances}}] {% endif %}
+  </h3>
+  {% include "../templates/partials/elapsed.html" %}
+</div>

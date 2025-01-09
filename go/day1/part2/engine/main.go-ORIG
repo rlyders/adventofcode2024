@@ -1,0 +1,67 @@
+package engine
+
+import (
+	"time"
+
+	"github.com/rlyders/adventofcode/utils"
+)
+
+type SimilarityResults struct {
+	Similarity_scores      []SimilarityScore
+	Total_similarity_score uint32
+	Elapsed_ms             uint32
+	Elapsed_μs             uint32
+}
+
+type SimilarityScore struct {
+	Location_a       uint32
+	Found_in_list_b  uint32
+	Similarity_score uint32
+}
+
+type LocationPair struct {
+	Location_a uint32
+	Location_b uint32
+	Distance   uint32
+}
+
+func GetSimilarityScoreOfListsText(lists string) (SimilarityResults, error) {
+	start := time.Now()
+
+	list1, list2, err := utils.SplitLists(lists)
+	utils.Check(err, "SplitLists")
+
+	results, err := GetSimilarityScore(list1, list2)
+	utils.Check(err, "GetSimilarityScore")
+
+	elapsed := time.Since(start)
+	results.Elapsed_ms = uint32(elapsed.Milliseconds())
+	results.Elapsed_μs = uint32(elapsed.Microseconds())
+
+	return results, nil
+}
+
+func GetSimilarityScore(locations_a []uint32, locations_b []uint32) (SimilarityResults, error) {
+
+	var results SimilarityResults
+	for _, a := range locations_a {
+
+		similarityScore := SimilarityScore{
+			Location_a:       a,
+			Found_in_list_b:  0,
+			Similarity_score: 0,
+		}
+
+		for _, b := range locations_b {
+			if a == b {
+				similarityScore.Found_in_list_b += 1
+			}
+		}
+		similarityScore.Similarity_score = a * similarityScore.Found_in_list_b
+		results.Similarity_scores = append(results.Similarity_scores, similarityScore)
+	}
+	for _, s := range results.Similarity_scores {
+		results.Total_similarity_score += s.Similarity_score
+	}
+	return results, nil
+}

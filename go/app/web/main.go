@@ -9,16 +9,17 @@ import (
 
 	"github.com/gorilla/mux"
 	day1_part1 "github.com/rlyders/adventofcode/day1/part1/web"
+	day1_part2 "github.com/rlyders/adventofcode/day1/part2/web"
 	"github.com/rlyders/adventofcode/utils"
 )
 
 var tmpl *template.Template
 
 func init() {
-	utils.OutputCwd()
-
 	var err error
-	tmpl, err = template.ParseGlob("templates/*.html")
+	pattern := "app/web/templates/*.html"
+	tmpl, err = template.New("").Funcs(utils.GetFormatUInt32FuncMap()).Funcs(utils.GetFormatElapsedMillisecondsFuncMap()).Funcs(utils.GetFormatElapsedMicrosecondsFuncMap()).Funcs(utils.GetFormatElapsedNanosecondsFuncMap()).ParseGlob(pattern)
+
 	if err != nil {
 		log.Fatal("Error loading templates:" + err.Error())
 	}
@@ -30,6 +31,7 @@ func main() {
 	gRouter.HandleFunc("/", home).Methods("GET")
 
 	day1_part1.SetRoutes(gRouter)
+	day1_part2.SetRoutes(gRouter)
 
 	http.ListenAndServe(":3000", gRouter)
 }

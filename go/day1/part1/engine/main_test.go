@@ -50,8 +50,7 @@ func Test_getSumOfDistancesOfListsText(t *testing.T) {
 					},
 				},
 				Sum_of_distances: 11,
-				Elapsed_ms:       0,
-				Elapsed_μs:       0,
+				Elapseds:         nil,
 			},
 			wantErr: false},
 	}

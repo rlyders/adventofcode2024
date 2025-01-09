@@ -11,6 +11,7 @@
             "request": "launch",
             "mode": "auto",
             "program": "app/cmd/main.go",
+            "args": ["", "1"],
             "cwd": "${workspaceFolder}"
         },
         {

@@ -1,0 +1,85 @@
+<div class="p-3">
+  <table
+    id="elapsed_time"
+    class="text-left table-auto min-w-max table-auto w-full"
+  >
+    <thead>
+      <tr>
+        <th class="p-2 border-b border-slate-300 bg-slate-50">
+          <span
+            class="block text-sm font-normal leading-none text-slate-500 text-left"
+          >
+            Elapsed time for task...
+            <br/>NOTE: timings are averages if iterations > 0
+          </span>
+        </th>
+        <th class="p-2 border-b border-slate-300 bg-slate-50">
+          <span
+            class="block text-sm font-normal leading-none text-slate-500 text-right"
+          >
+            milliseconds
+          </span>
+        </th>
+        <th class="p-2 border-b border-slate-300 bg-slate-50">
+          <span
+            class="block text-sm font-normal leading-none text-slate-500 text-right"
+          >
+            microseconds
+          </span>
+        </th>
+        <th class="p-2 border-b border-slate-300 bg-slate-50">
+          <span
+            class="block text-sm font-normal leading-none text-slate-500 text-right"
+          >
+            nanoseconds
+          </span>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for e in elapseds %}
+      <tr class="hover:bg-slate-50">
+        <td class="p-2 border-b border-slate-200 text-right">
+          <div class="block text-sm text-slate-800">server: {{e.name}}</div>
+        </td>
+        <td class="p-2 border-b border-slate-200 text-right">
+          <div class="block text-sm text-slate-800">
+            {{e.elapsed|elapsed_as_millis}} ms
+          </div>
+        </td>
+        <td class="p-2 border-b border-slate-200 text-right px-6">
+          <div class="block text-sm text-slate-800">
+            {{e.elapsed|elapsed_as_micros}} μs
+          </div>
+        </td>
+        <td class="p-2 border-b border-slate-200 text-right px-6">
+          <div class="block text-sm text-slate-800">
+            {{e.elapsed|elapsed_as_nanos}} ns
+          </div>
+        </td>
+      </tr>
+      {% endfor %}
+
+      <tr class="hover:bg-slate-50">
+        <td class="p-2 border-b border-slate-200 text-right">
+          <div class="block text-sm text-slate-800">client total:</div>
+        </td>
+        <td class="p-2 border-b border-slate-200 text-right">
+          <div class="block text-sm text-slate-800">
+            <div id="client_ms"></div>
+          </div>
+        </td>
+        <td class="p-2 border-b border-slate-200 text-right px-6">
+          <div class="block text-sm text-slate-800">
+            <span><span id="client_μs"></span></span>
+          </div>
+        </td>
+        <td class="p-2 border-b border-slate-200 text-right px-6">
+          <div class="block text-sm text-slate-800">
+            <span><span id="client_ns"></span></span>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

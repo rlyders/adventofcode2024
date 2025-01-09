@@ -36,17 +36,17 @@
       <tr class="hover:bg-slate-50">
         <td class="p-2 border-b border-slate-200 text-right">
           <p class="block text-sm text-slate-800">
-            {{ formatInt .Location_a }}
+            {{ FormatUInt32 .Location_a }}
           </p>
         </td>
         <td class="p-2 border-b border-slate-200 text-right">
           <p class="block text-sm text-slate-800">
-            {{ formatInt .Location_b }}
+            {{ FormatUInt32 .Location_b }}
           </p>
         </td>
         <td class="p-2 border-b border-slate-200 text-right">
           <p class="block text-sm text-slate-800">
-            {{ formatInt .Distance }}
+            {{ FormatUInt32 .Distance }}
           </p>
         </td>
       </tr>
@@ -64,7 +64,7 @@
           colspan="1"
           class="p-2 font-bold text-slate-800 border-t border-slate-300 text-right"
         >
-          {{formatInt .Sum_of_distances}}
+          {{FormatUInt32 .Sum_of_distances}}
         </td>
       </tr>
     </tfoot>
@@ -72,7 +72,10 @@
 </div>
 <div id="totals" hx-swap-oob="true">
   <h3 class="text-lg font-semibold ml-3 text-slate-800">
-    Sum of distances: {{formatInt .Sum_of_distances}} {{ if gt .Sum_of_distances 999 }}[raw: {{.Sum_of_distances}}] {{end}}
+    Sum of distances: {{FormatUInt32 .Sum_of_distances}} 
+    {{ if gt .Sum_of_distances 999 }}
+      [raw: {{.Sum_of_distances}}] 
+    {{end}}
   </h3>
   {{ template "elapsed" .}}
 </div>

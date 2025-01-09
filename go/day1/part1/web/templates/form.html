@@ -1,23 +1,10 @@
 {{define "form"}}
-<script>
-  function showHtmxElapsed(startTime) {
-    const clientElapsedMs = performance.now() - startTime;
-    const clientElapsedMsStr = clientElapsedMs.toFixed(0) + " ms";
-    document.getElementById("client_ms").innerText = clientElapsedMsStr;
-
-    const clientElapsedμs = (performance.now() - startTime) * 1000;
-    ;
-    const clientElapsedμsStr = Number(clientElapsedμs.toFixed(0)).toLocaleString() + " μs";
-    document.getElementById("client_μs").innerText = clientElapsedμsStr;
-
-    console.log(`client: ${clientElapsedMsStr} (${clientElapsedμsStr})`);
-  }
-</script>
 <form
-  hx-post="/day1/part1/sum_of_distances"
+  hx-post="/day1/part1/calculate"
   hx-target="#results"
   hx-on::before-request="event.detail.xhr.go_time = performance.now()"
   hx-on::after-request="showHtmxElapsed(event.detail.xhr.go_time); console.log(JSON.stringify(event, null, 4))"
+  hx-indicator="find #spinner"
 >
   <div class="relative px-6">
     <div class="relative min-w-[200px]">
@@ -75,13 +62,16 @@
             </label>
           </div>
           <!-- Calculate Button -->
-          <input
+          <button
             class="cursor-pointer whitespace-nowrap rounded-md bg-black px-4 py-2 text-center font-medium tracking-wide text-neutral-100 transition hover:opacity-75 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black active:opacity-100 active:outline-offset-0 dark:bg-white dark:text-black dark:focus-visible:outline-white"
             type="submit"
             value="Calculate"
-            aria-label="send"
-          />
+            aria-label="send">
+            Calculate
+            <svg class="spinner animate-spin" id="spinner" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"></path></svg>            
+          </button>
         </div>
+        {{ template "iterations" }}
       </div>
     </div>
   </div>

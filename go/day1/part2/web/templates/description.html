@@ -1,0 +1,25 @@
+{{define "description"}}
+<ul
+class="max-w-full px-6 space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400"
+>
+<li>
+  Split each row of 2 numbers into separate lists (A and B) with 1 number
+  per row.
+</li>
+<li>
+  Calculate the similarity score between the lists, starting with the 1st number in
+  the list A:
+</li>
+<ul
+  class="max-w-full px-6 space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400"
+>
+<li>
+  Multiply the number in list A with the number of times that number appears in the list B.
+</li>
+<li>
+  Repeat this for all items in the list A.
+</li>
+</ul>
+<li>Sum up all the similarity scores.</li>
+</ul>
+{{end}}
