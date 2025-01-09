@@ -9,7 +9,7 @@ import (
 	"os"
 	"path/filepath"
 	"runtime"
-	"sort"
+	"slices"
 	"strconv"
 	"strings"
 	"time"
@@ -193,15 +193,11 @@ func SplitAndSortLists(lists string) ([]uint32, []uint32, time.Duration, time.Du
 	elapsedSplit := time.Since(start)
 
 	start = time.Now()
-	sort.Slice(list1, func(i, j int) bool {
-		return list1[i] < list1[j]
-	})
+	slices.Sort(list1)
 	elapsedSort1 := time.Since(start)
 
 	start = time.Now()
-	sort.Slice(list2, func(i, j int) bool {
-		return list2[i] < list2[j]
-	})
+	slices.Sort(list2)
 	elapsedSort2 := time.Since(start)
 
 	return list1, list2, elapsedSplit, elapsedSort1, elapsedSort2, nil
