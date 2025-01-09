@@ -4,7 +4,6 @@ pub mod part2;
 use std::path::Path;
 
 pub fn run(data_path: String, iterations: u32 ) { 
-    println!("day1 run: iterations: {}", iterations);
     let path = Path::new(&data_path).join("day1").join("lists.txt");
 	let location_lists_path = path.to_str().expect("failed to get path to lists.txt").to_string();
 

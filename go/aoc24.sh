@@ -1,2 +1,2 @@
 #!/bin/bash
-./app/cmd/bin/aoc24 "$@"
+time ./app/cmd/bin/aoc24 "$@"

@@ -186,19 +186,25 @@ func SplitLists(lists string) ([]uint32, []uint32, error) {
 	return list1, list2, nil
 }
 
-func SplitAndSortLists(lists string) ([]uint32, []uint32, error) {
+func SplitAndSortLists(lists string) ([]uint32, []uint32, time.Duration, time.Duration, time.Duration, error) {
+	start := time.Now()
 	list1, list2, err := SplitLists(lists)
 	Check(err, "SplitLists")
+	elapsedSplit := time.Since(start)
 
+	start = time.Now()
 	sort.Slice(list1, func(i, j int) bool {
 		return list1[i] < list1[j]
 	})
+	elapsedSort1 := time.Since(start)
 
+	start = time.Now()
 	sort.Slice(list2, func(i, j int) bool {
 		return list2[i] < list2[j]
 	})
+	elapsedSort2 := time.Since(start)
 
-	return list1, list2, nil
+	return list1, list2, elapsedSplit, elapsedSort1, elapsedSort2, nil
 }
 
 func ArgOrDefaultPath(argNum int, default_paths []string) string {

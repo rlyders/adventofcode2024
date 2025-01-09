@@ -1,2 +1,2 @@
 #!/bin/bash
-./target/release/aoc24 "$@"
+time ./target/release/aoc24 "$@"

@@ -49,8 +49,8 @@ func home(w http.ResponseWriter, r *http.Request) {
 func getSumOfDistances(w http.ResponseWriter, r *http.Request) {
 	location_columns := r.FormValue("location_columns")
 
-	iterations_input := r.FormValue("iterations")
-	iterations, err := strconv.ParseInt(iterations_input, 10, 64)
+	iterations_form_value := r.FormValue("iterations")
+	iterations, err := strconv.ParseInt(iterations_form_value, 10, 64)
 	if err != nil {
 		panic(err)
 	}

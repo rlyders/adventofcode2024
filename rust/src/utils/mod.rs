@@ -52,14 +52,21 @@ pub fn split_lists(location_columns: &str) -> Result<(Vec<u32>,Vec<u32>), Box<dy
     Ok((locations_a.clone(), locations_b.clone()))
 }
 
-pub fn split_and_sort_lists(lists: &String) -> Result<(Vec<u32>, Vec<u32>, Option<Duration>), Box<dyn Error>> {
+pub fn split_and_sort_lists(lists: &String) -> Result<(Vec<u32>, Vec<u32>, Option<Duration>, Option<Duration>, Option<Duration>, Option<Duration>), Box<dyn Error>> {
     let start: SystemTime = SystemTime::now();
 
 	let (mut list1, mut list2) = split_lists(&lists).expect("failed to split lists");
-	list1.sort();
-	list2.sort();
-	
-    Ok((list1, list2, start.elapsed().ok()))
+    let split_elapsed: Option<Duration> = start.elapsed().ok();
+
+    let start_sort1: SystemTime = SystemTime::now();
+    list1.sort();
+    let sort1_elapsed: Option<Duration> = start_sort1.elapsed().ok();
+
+    let start_sort2: SystemTime = SystemTime::now();
+    list2.sort();
+    let sort2_elapsed: Option<Duration> = start_sort2.elapsed().ok();
+
+    Ok((list1, list2, split_elapsed, sort1_elapsed, sort2_elapsed, start.elapsed().ok()))
 }
 
 pub fn arg_or_default_path(arg_num: usize, default_paths: Vec<String>) -> Result<String, Box<dyn Error>> {

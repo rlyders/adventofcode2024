@@ -32,6 +32,9 @@ func GetSimilarityScoreOfListsTextRepeated(lists string, iterations int64) (Simi
 	}
 	var results SimilarityResults
 	var err error
+	var splitElapsed int64
+	var sort1Elapsed int64
+	var sort2Elapsed int64
 	var splitSortElapsed int64
 	var calculateElapsed int64
 	var totalElapsed int64
@@ -40,9 +43,15 @@ func GetSimilarityScoreOfListsTextRepeated(lists string, iterations int64) (Simi
 		utils.Check(err, "GetSimilarityScoreOfListsText")
 		for _, d := range results.Elapseds {
 			switch d.Name {
+			case "split":
+				splitElapsed += d.Elapsed.Nanoseconds()
+			case "sort1":
+				sort1Elapsed += d.Elapsed.Nanoseconds()
+			case "sort2":
+				sort2Elapsed += d.Elapsed.Nanoseconds()
 			case "split and sort":
 				splitSortElapsed += d.Elapsed.Nanoseconds()
-			case "calculate similarity":
+			case "calculate distance":
 				calculateElapsed += d.Elapsed.Nanoseconds()
 			case "total":
 				totalElapsed += d.Elapsed.Nanoseconds()
@@ -51,6 +60,12 @@ func GetSimilarityScoreOfListsTextRepeated(lists string, iterations int64) (Simi
 	}
 	for _, d := range results.Elapseds {
 		switch d.Name {
+		case "split":
+			d.Elapsed = time.Duration(splitElapsed / iterations)
+		case "sort1":
+			d.Elapsed = time.Duration(sort1Elapsed / iterations)
+		case "sort2":
+			d.Elapsed = time.Duration(sort2Elapsed / iterations)
 		case "split and sort":
 			d.Elapsed = time.Duration(splitSortElapsed / iterations)
 		case "calculate similarity":
@@ -65,16 +80,18 @@ func GetSimilarityScoreOfListsTextRepeated(lists string, iterations int64) (Simi
 func GetSimilarityScoreOfListsText(lists string) (SimilarityResults, error) {
 	start := time.Now()
 
-	list1, list2, err := utils.SplitAndSortLists(lists)
-	utils.Check(err, "SplitLists")
+	list1, list2, elapsedSplit, elapsedSort1, elapsedSort2, err := utils.SplitAndSortLists(lists)
+	utils.Check(err, "SplitAndSortLists")
 	elapsedSplitAndSort := time.Since(start)
 
 	results, err := GetSimilarityScoreOfSortedLists(list1, list2)
 	utils.Check(err, "GetSimilarityScore")
 
-	elapsed := time.Since(start)
 	results.Elapseds = slices.Insert(results.Elapseds, 0, utils.NamedElapsed{Name: "split and sort", Elapsed: elapsedSplitAndSort})
-	results.Elapseds = append(results.Elapseds, utils.NamedElapsed{Name: "total", Elapsed: elapsed})
+	results.Elapseds = slices.Insert(results.Elapseds, 0, utils.NamedElapsed{Name: "sort2", Elapsed: elapsedSort2})
+	results.Elapseds = slices.Insert(results.Elapseds, 0, utils.NamedElapsed{Name: "sort1", Elapsed: elapsedSort1})
+	results.Elapseds = slices.Insert(results.Elapseds, 0, utils.NamedElapsed{Name: "split", Elapsed: elapsedSplit})
+	results.Elapseds = append(results.Elapseds, utils.NamedElapsed{Name: "total", Elapsed: time.Since(start)})
 
 	return results, nil
 }

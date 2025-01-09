@@ -15,7 +15,7 @@ mod tests {
         1   3
         3   9
         3   3";
-        let (locations_a, locations_b, _elapsed) = split_and_sort_lists(&lists.to_string()).expect("failed to split and sort lists");
+        let (locations_a, locations_b, _, _, _, _) = split_and_sort_lists(&lists.to_string()).expect("failed to split and sort lists");
         assert_eq!(locations_a, vec![1,2,3,3,3,4]);
         assert_eq!(locations_b, vec![3,3,3,4,5,9]);
     }

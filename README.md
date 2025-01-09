@@ -65,27 +65,32 @@ Directory exists: rust
 prog=./target/release/aoc24
 
 ------------- Run with timing -------------
-day1 run: iterations: 50000
 Iterations: 50000 ... all timings shown below are averages
 ------------------------------------------------------------------
       Total Distance:  2,970,687 [raw:    2970687]
 -- Timings: --
-           split and sort:  0 ms [     95 μs;     95,566 ns]
-       calculate distance:  0 ms [      2 μs;      2,086 ns]
-                    total:  0 ms [     97 μs;     97,980 ns]
+                    split:  0 ms [     70 μs;     70,580 ns]
+                    sort1:  0 ms [     10 μs;     10,244 ns]
+                    sort2:  0 ms [      9 μs;      9,849 ns]
+           split and sort:  0 ms [     90 μs;     90,876 ns]
+       calculate distance:  0 ms [      1 μs;      1,993 ns]
+                    total:  0 ms [     93 μs;     93,258 ns]
 ------------------------------------------------------------------
 Iterations: 50000 ... all timings shown below are averages
 ------------------------------------------------------------------
     Total Similarity: 23,963,899 [raw:   23963899]
 -- Timings: --
-           split and sort:  0 ms [     76 μs;     76,348 ns]
-     calculate similarity:  0 ms [      4 μs;      4,513 ns]
-                    total:  0 ms [     81 μs;     81,002 ns]
+                    split:  0 ms [     72 μs;     72,219 ns]
+                    sort1:  0 ms [     10 μs;     10,791 ns]
+                    sort2:  0 ms [     10 μs;     10,272 ns]
+           split and sort:  0 ms [     93 μs;     93,485 ns]
+     calculate similarity:  0 ms [      6 μs;      6,276 ns]
+                    total:  0 ms [    106 μs;    106,720 ns]
 ------------------------------------------------------------------
 
-real    0m9.321s
-user    0m10.343s
-sys     0m0.011s
+real    0m9.679s
+user    0m9.679s
+sys     0m0.000s
 run: OK
 -------------------------------------------
 ```
@@ -122,22 +127,28 @@ Iterations: 50000 ... all timings shown below are averages
 ------------------------------------------------------------------
            Total Distance:  2,970,687 [raw:    2970687]
 -- Timings: --
-           split and sort:  0 ms [    244 μs;     244,607 ns]
-       calculate distance:  0 ms [      6 μs;       6,131 ns]
-                    total:  0 ms [    244 μs;     244,607 ns]
+                    split:  0 ms [    122 μs;     122,421 ns]
+                    sort1:  0 ms [     92 μs;      92,305 ns]
+                    sort2:  0 ms [     69 μs;      69,879 ns]
+           split and sort:  0 ms [    284 μs;     284,865 ns]
+       calculate distance:  0 ms [      9 μs;       9,321 ns]
+                    total:  0 ms [    294 μs;     294,958 ns]
 ------------------------------------------------------------------
 Iterations: 50000 ... all timings shown below are averages
 ------------------------------------------------------------------
          Total Similarity: 23,963,899 [raw:   23963899]
 -- Timings: --
-           split and sort:  0 ms [    300 μs;     300,632 ns]
-     calculate similarity:  0 ms [     36 μs;      36,267 ns]
-                    total:  0 ms [    337 μs;     337,080 ns]
+                    split:  0 ms [    145 μs;     145,288 ns]
+                    sort1:  0 ms [     86 μs;      86,922 ns]
+                    sort2:  0 ms [     76 μs;      76,334 ns]
+           split and sort:  0 ms [    308 μs;     308,765 ns]
+     calculate similarity:  0 ms [     37 μs;      37,587 ns]
+                    total:  0 ms [    347 μs;     347,020 ns]
 ------------------------------------------------------------------
 
-real    0m38.197s
-user    0m38.138s
-sys     0m2.981s
+real    0m35.688s
+user    0m35.584s
+sys     0m2.609s
 run: OK
 -------------------------------------------
 ```

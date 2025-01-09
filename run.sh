@@ -28,7 +28,7 @@ echo ""
 echo "------------- Run with timing -------------"
 # run and show time of run
 
-if time ./aoc24.sh "${@:2}"; then
+if ./aoc24.sh "${@:2}"; then
     echo "run: OK"
 else
     echo "run: FAILED"

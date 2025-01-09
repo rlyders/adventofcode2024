@@ -34,6 +34,9 @@ pub fn get_sum_of_distances_of_lists_text_repeats(
         sum_of_distances: 0,
         elapseds: vec![],
     };
+    let mut split_ns: u128 = 0;
+    let mut sort1_ns: u128 = 0;
+    let mut sort2_ns: u128 = 0;
     let mut split_and_sort_ns: u128 = 0;
     let mut calculate_ns: u128 = 0;
     let mut total_ns: u128 = 0;
@@ -42,6 +45,9 @@ pub fn get_sum_of_distances_of_lists_text_repeats(
 
         for d in &results.elapseds {
             match d.name.as_str() {
+                "split" => split_ns += d.elapsed.unwrap().as_nanos(),
+                "sort1" => sort1_ns += d.elapsed.unwrap().as_nanos(),
+                "sort2" => sort2_ns += d.elapsed.unwrap().as_nanos(),
                 "split and sort" => split_and_sort_ns += d.elapsed.unwrap().as_nanos(),
                 "calculate distance" => calculate_ns += d.elapsed.unwrap().as_nanos(),
                 "total" => total_ns += d.elapsed.unwrap().as_nanos(),
@@ -52,6 +58,9 @@ pub fn get_sum_of_distances_of_lists_text_repeats(
 
     for d in &mut results.elapseds {
         match d.name.as_str() {
+            "split" => d.elapsed = Some(Duration::from_nanos(split_ns as u64/ iterations as u64)),
+            "sort1" => d.elapsed = Some(Duration::from_nanos(sort1_ns as u64/ iterations as u64)),
+            "sort2" => d.elapsed = Some(Duration::from_nanos(sort2_ns as u64/ iterations as u64)),
             "split and sort" => d.elapsed = Some(Duration::from_nanos(split_and_sort_ns as u64/ iterations as u64)),
             "calculate distance" => d.elapsed = Some(Duration::from_nanos(calculate_ns as u64/ iterations as u64)),
             "total" => d.elapsed = Some(Duration::from_nanos(total_ns as u64/ iterations as u64)),
@@ -67,8 +76,9 @@ pub fn get_sum_of_distances_of_lists_text(
 ) -> Result<SumOfDistancesResults, Box<dyn Error>> {
     let start: SystemTime = SystemTime::now();
 
-    let (sorted_list1, sorted_list2, split_and_sort_lists_elapsed) =
+    let (sorted_list1, sorted_list2, split_elapsed, sort1_elapsed, sort2_elapsed, _) =
         utils::split_and_sort_lists(&lists_text).expect("failed to split and sort lists");
+    let split_sort_elapsed = start.elapsed().ok();
 
     let mut results =
         get_sum_of_distances(sorted_list1, sorted_list2).expect("failed to calculate distances");
@@ -77,9 +87,34 @@ pub fn get_sum_of_distances_of_lists_text(
         0,
         utils::NamedElapsed {
             name: "split and sort".to_string(),
-            elapsed: split_and_sort_lists_elapsed,
+            elapsed: split_sort_elapsed,
         },
     );
+
+    results.elapseds.insert(
+        0,
+        utils::NamedElapsed {
+            name: "sort2".to_string(),
+            elapsed: sort2_elapsed,
+        },
+    );
+
+    results.elapseds.insert(
+        0,
+        utils::NamedElapsed {
+            name: "sort1".to_string(),
+            elapsed: sort1_elapsed,
+        },
+    );
+
+    results.elapseds.insert(
+        0,
+        utils::NamedElapsed {
+            name: "split".to_string(),
+            elapsed: split_elapsed,
+        },
+    );
+
     results.elapseds.push(utils::NamedElapsed {
         name: "total".to_string(),
         elapsed: start.elapsed().ok(),
