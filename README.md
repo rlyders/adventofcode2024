@@ -9,6 +9,15 @@ I'm working through the [Advent Of Code 2024](https://adventofcode.com/2024) cha
 
 GitHub: https://github.com/rlyders/adventofcode2024
 
+NOTE: This project was developed under Windows 11 WSL2, which is configured to use 50% of system memory. Thus, the following results from `free -h` reflect only half of the system RAM and these are typical results for my work on this project. I often run multiple instances of VS Code for this project to switch back and forth between rust and go-lang. 
+
+```sh
+$ free -h
+               total        used        free      shared  buff/cache   available
+Mem:           7.6Gi       6.0Gi       254Mi       3.1Mi       1.7Gi       1.7Gi
+Swap:          2.0Gi       528Mi       1.5Gi
+```
+
 # rust version of app
 
 For rust, I've completed Day 1 both Part One and Part Two both as a command-line app and as a full-stack web-app using [HTMX](https://htmx.org/) and [Alpine.js](https://alpinejs.dev/).
