@@ -66,13 +66,13 @@ func GetSumOfDistancesOfListsText(lists string) (SumOfDistancesResults, error) {
 
 	list1, list2, err := utils.SplitAndSortLists(lists)
 	utils.Check(err, "SplitAndSortLists")
+	elapsedSplit := time.Since(start)
 
 	results, err := GetSumOfDistances(list1, list2)
 	utils.Check(err, "GetSumOfDistances")
 
-	elapsed := time.Since(start)
-	results.Elapseds = slices.Insert(results.Elapseds, 0, utils.NamedElapsed{Name: "split and sort", Elapsed: elapsed})
-	results.Elapseds = append(results.Elapseds, utils.NamedElapsed{Name: "total", Elapsed: elapsed})
+	results.Elapseds = slices.Insert(results.Elapseds, 0, utils.NamedElapsed{Name: "split and sort", Elapsed: elapsedSplit})
+	results.Elapseds = append(results.Elapseds, utils.NamedElapsed{Name: "total", Elapsed: time.Since(start)})
 
 	return results, nil
 }

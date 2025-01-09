@@ -120,11 +120,12 @@ pub fn sum_similarity_scores(
 pub fn similarity_scores_processor(lists_text: &String) -> Result<SimilarityResults, Box<dyn Error>>  {
     let start: SystemTime = SystemTime::now();
 
-    let (locations_a, locations_b, split_sort_elapsed) = split_and_sort_lists(lists_text).expect("failed to split and sort lists");
+    let (locations_a, locations_b, _) = split_and_sort_lists(lists_text).expect("failed to split and sort lists");
+    let elapsed_split = start.elapsed().ok();
 
     let mut results: SimilarityResults = sum_similarity_scores(locations_a, locations_b).expect("failed to calculate similarity score");
 
-    results.elapseds.insert(0, utils::NamedElapsed { name: "split and sort".to_string(), elapsed: split_sort_elapsed});
+    results.elapseds.insert(0, utils::NamedElapsed { name: "split and sort".to_string(), elapsed: elapsed_split});
     results.elapseds.push(utils::NamedElapsed { name: "total".to_string(), elapsed: start.elapsed().ok()});
     
     Ok(results)
