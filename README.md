@@ -139,41 +139,41 @@ Directory exists: go
 prog=./app/cmd/bin/aoc24
 
 ------------- Run with timing -------------
-# [PID 61404 ] START: main       : RAM: 158.3 KB of avail:   6.3 MB [GC cummulative: 158.3 KB, cycles:    0]
+# [PID 66540 ] START: main       : RAM: 158.5 KB of avail:   6.3 MB [GC cummulative: 158.5 KB, cycles:    0]
 location lists file: ../data/day1/lists.txt
-# [PID 61404 ] START: Day1 Part1 : RAM: 159.2 KB of avail:   6.3 MB [GC cummulative: 159.2 KB, cycles:    0]
+# [PID 66540 ] START: Day1 Part1 : RAM: 159.4 KB of avail:   6.3 MB [GC cummulative: 159.4 KB, cycles:    0]
 Iterations: 50,000 ... all timings shown below are averages
 ------------------------------------------------------------------
            Total Distance:  2,970,687 [raw:    2970687]
 -- Timings: --
-                    split:  0 ms [    143 μs;     143,880 ns]
-                    sort1:  0 ms [     43 μs;      43,180 ns]
-                    sort2:  0 ms [     38 μs;      38,948 ns]
-           split and sort:  0 ms [    226 μs;     226,220 ns]
-       calculate distance:  0 ms [      7 μs;       7,975 ns]
-                    total:  0 ms [    234 μs;     234,707 ns]
+                    split:  0 ms [    138 μs;     138,908 ns]
+                    sort1:  0 ms [     39 μs;      39,268 ns]
+                    sort2:  0 ms [     35 μs;      35,656 ns]
+           split and sort:  0 ms [    214 μs;     214,031 ns]
+       calculate distance:  0 ms [      6 μs;       6,830 ns]
+                    total:  0 ms [    221 μs;     221,338 ns]
 ------------------------------------------------------------------
-# [PID 61404 ] END  : Day1 Part1 : RAM:   2.4 MB of avail:  15.7 MB [GC cummulative:   5.5 GB, cycles: 1769]
-# [PID 61404 ] POST : GarbageCol : RAM: 157.8 KB of avail:  15.7 MB [GC cummulative:   5.5 GB, cycles: 1770]
-# [PID 61404 ] START: Day1 Part2 : RAM: 158.9 KB of avail:  15.7 MB [GC cummulative:   5.5 GB, cycles: 1770]
+# [PID 66540 ] END  : Day1 Part1 : RAM:   1.1 MB of avail:  15.2 MB [GC cummulative:   5.5 GB, cycles: 1783]
+# [PID 66540 ] POST : GarbageCol : RAM: 159.8 KB of avail:  15.2 MB [GC cummulative:   5.5 GB, cycles: 1784]
+# [PID 66540 ] START: Day1 Part2 : RAM: 161.0 KB of avail:  15.2 MB [GC cummulative:   5.5 GB, cycles: 1784]
 Iterations: 50,000 ... all timings shown below are averages
 ------------------------------------------------------------------
          Total Similarity: 23,963,899 [raw:   23963899]
 -- Timings: --
-                    split:  0 ms [    379 μs;     379,057 ns]
-                    sort1:  0 ms [     44 μs;      44,878 ns]
-                    sort2:  0 ms [     39 μs;      39,802 ns]
-           split and sort:  0 ms [    464 μs;     464,219 ns]
-     calculate similarity:  0 ms [    165 μs;     165,410 ns]
-                    total:  0 ms [    632 μs;     632,091 ns]
+                    split:  0 ms [    143 μs;     143,590 ns]
+                    sort1:  0 ms [     46 μs;      46,393 ns]
+                    sort2:  0 ms [     42 μs;      42,829 ns]
+           split and sort:  0 ms [    233 μs;     233,019 ns]
+     calculate similarity:  0 ms [     40 μs;      40,394 ns]
+                    total:  0 ms [    274 μs;     274,003 ns]
 ------------------------------------------------------------------
-# [PID 61404 ] END  : Day1 Part2 : RAM: 466.2 KB of avail:  15.8 MB [GC cummulative:  11.7 GB, cycles: 3769]
-# [PID 61404 ] END  : main       : RAM: 466.5 KB of avail:  15.8 MB [GC cummulative:  11.7 GB, cycles: 3769]
-# [PID 61404 ] POST : GarbageCol : RAM: 157.8 KB of avail:  15.8 MB [GC cummulative:  11.7 GB, cycles: 3770]
+# [PID 66540 ] END  : Day1 Part2 : RAM:   2.7 MB of avail:  19.5 MB [GC cummulative:  11.7 GB, cycles: 3796]
+# [PID 66540 ] END  : main       : RAM:   2.7 MB of avail:  19.5 MB [GC cummulative:  11.7 GB, cycles: 3796]
+# [PID 66540 ] POST : GarbageCol : RAM: 163.1 KB of avail:  19.5 MB [GC cummulative:  11.7 GB, cycles: 3797]
 
-real    0m29.041s
-user    0m29.634s
-sys     0m2.468s
+real    0m27.407s
+user    0m27.106s
+sys     0m2.333s
 run: OK
 -------------------------------------------
 ```
