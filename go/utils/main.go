@@ -19,6 +19,8 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
+var englishPrinter = message.NewPrinter(language.English)
+
 var aoc AdventOfCode
 
 type AdventOfCode struct {
@@ -96,8 +98,6 @@ func GetInt(str string) uint32 {
 	Check(err, str)
 	return uint32(i)
 }
-
-var englishPrinter = message.NewPrinter(language.English)
 
 func GetFormatUInt32FuncMap() template.FuncMap {
 	return template.FuncMap{

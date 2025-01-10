@@ -6,6 +6,8 @@ import (
 	"time"
 
 	"github.com/rlyders/adventofcode/utils"
+	"golang.org/x/text/language"
+	"golang.org/x/text/message"
 )
 
 type LocationPairs struct {
@@ -25,9 +27,11 @@ type LocationPair struct {
 	Distance   uint32
 }
 
+var englishPrinter = message.NewPrinter(language.English)
+
 func GetSimilarityScoreOfListsTextRepeated(lists string, iterations int64) (SumOfDistancesResults, error) {
 	if iterations > 1 {
-		fmt.Printf("Iterations: %d ... all timings shown below are averages\n", iterations)
+		fmt.Println(englishPrinter.Sprintf("Iterations: %v ... all timings shown below are averages", iterations))
 	}
 	var results SumOfDistancesResults
 	var err error

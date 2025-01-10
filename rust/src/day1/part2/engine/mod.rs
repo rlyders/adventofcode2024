@@ -7,6 +7,9 @@ use crate::utils::{self, split_and_sort_lists};
 
 use super::web::{SimilarityResults, SimilarityScore};
 
+/// Any filters defined in `mod filters` are accessible in your template documents.
+use thousands::Separable;
+
 // Define a global shared state for storing location lists
 lazy_static! {
     pub static ref LOCATION_COLUMNS: Mutex<String> = Mutex::new(String::from(
@@ -111,7 +114,7 @@ pub fn sum_similarity_scores(
     }
     results.elapseds.push(utils::NamedElapsed {
         name: "calculate similarity".to_string(),
-        elapsed: start.elapsed().ok(),
+        elapsed: start.elapsed()?,
     });
 
     Ok(results)
@@ -121,7 +124,7 @@ pub fn similarity_scores_processor(lists_text: &String) -> Result<SimilarityResu
     let start: SystemTime = SystemTime::now();
 
     let (locations_a, locations_b, split_elapsed, sort1_elapsed, sort2_elapsed, _) = split_and_sort_lists(lists_text).expect("failed to split and sort lists");
-    let split_sort_elapsed = start.elapsed().ok();
+    let split_sort_elapsed = start.elapsed()?;
 
     let mut results: SimilarityResults = sum_similarity_scores(locations_a, locations_b).expect("failed to calculate similarity score");
 
@@ -129,7 +132,7 @@ pub fn similarity_scores_processor(lists_text: &String) -> Result<SimilarityResu
     results.elapseds.insert(0, utils::NamedElapsed { name: "sort2".to_string(), elapsed: sort2_elapsed});
     results.elapseds.insert(0, utils::NamedElapsed { name: "sort1".to_string(), elapsed: sort1_elapsed});
     results.elapseds.insert(0, utils::NamedElapsed { name: "split".to_string(), elapsed: split_elapsed});
-    results.elapseds.push(utils::NamedElapsed { name: "total".to_string(), elapsed: start.elapsed().ok()});
+    results.elapseds.push(utils::NamedElapsed { name: "total".to_string(), elapsed: start.elapsed()?});
     
     Ok(results)
 }
@@ -139,7 +142,7 @@ pub fn similarity_scores_processor_repeats(
     iterations: u32,
 ) -> Result<SimilarityResults, Box<dyn Error>> {
 	if iterations > 1 {
-		println!("Iterations: {} ... all timings shown below are averages", iterations)
+		println!("Iterations: {} ... all timings shown below are averages", iterations.separate_with_commas())
 	}
     let mut results = SimilarityResults {
         similarity_scores: vec![],
@@ -157,12 +160,12 @@ pub fn similarity_scores_processor_repeats(
 
         for d in &results.elapseds {
             match d.name.as_str() {
-                "split" => split_ns += d.elapsed.unwrap().as_nanos(),
-                "sort1" => sort1_ns += d.elapsed.unwrap().as_nanos(),
-                "sort2" => sort2_ns += d.elapsed.unwrap().as_nanos(),
-                "split and sort" => split_and_sort_ns += d.elapsed.unwrap().as_nanos(),
-                "calculate similarity" => calculate_ns += d.elapsed.unwrap().as_nanos(),
-                "total" => total_ns += d.elapsed.unwrap().as_nanos(),
+                "split" => split_ns += d.elapsed.as_nanos(),
+                "sort1" => sort1_ns += d.elapsed.as_nanos(),
+                "sort2" => sort2_ns += d.elapsed.as_nanos(),
+                "split and sort" => split_and_sort_ns += d.elapsed.as_nanos(),
+                "calculate similarity" => calculate_ns += d.elapsed.as_nanos(),
+                "total" => total_ns += d.elapsed.as_nanos(),
                 _ => panic!("unexpected elapsed name: {}", d.name.as_str()),
             }
         }
@@ -170,10 +173,10 @@ pub fn similarity_scores_processor_repeats(
 
     for d in &mut results.elapseds {
         match d.name.as_str() {
-            "split" => d.elapsed = Some(Duration::from_nanos(split_ns as u64/ iterations as u64)),
-            "sort1" => d.elapsed = Some(Duration::from_nanos(sort1_ns as u64/ iterations as u64)),
-            "sort2" => d.elapsed = Some(Duration::from_nanos(sort2_ns as u64/ iterations as u64)),
-            "split and sort" => d.elapsed = Some(Duration::from_nanos(split_and_sort_ns as u64/ iterations as u64)),
+            "split" => d.elapsed = Duration::from_nanos(split_ns as u64/ iterations as u64),
+            "sort1" => d.elapsed = Duration::from_nanos(sort1_ns as u64/ iterations as u64),
+            "sort2" => d.elapsed = Duration::from_nanos(sort2_ns as u64/ iterations as u64),
+            "split and sort" => d.elapsed = Duration::from_nanos(split_and_sort_ns as u64/ iterations as u64),
             "calculate similarity" => calculate_ns = calculate_ns / iterations as u128,
             "total" => total_ns = total_ns / iterations as u128,
             _ => panic!("unexpected elapsed name: {}", d.name.as_str()),

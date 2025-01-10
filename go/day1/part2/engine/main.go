@@ -6,7 +6,11 @@ import (
 	"time"
 
 	"github.com/rlyders/adventofcode/utils"
+	"golang.org/x/text/language"
+	"golang.org/x/text/message"
 )
+
+var englishPrinter = message.NewPrinter(language.English)
 
 type SimilarityResults struct {
 	Similarity_scores      []SimilarityScore
@@ -28,7 +32,7 @@ type LocationPair struct {
 
 func GetSimilarityScoreOfListsTextRepeated(lists string, iterations int64) (SimilarityResults, error) {
 	if iterations > 1 {
-		fmt.Printf("Iterations: %d ... all timings shown below are averages\n", iterations)
+		fmt.Println(englishPrinter.Sprintf("Iterations: %v ... all timings shown below are averages", iterations))
 	}
 	var results SimilarityResults
 	var err error

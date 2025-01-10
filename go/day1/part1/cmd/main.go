@@ -9,6 +9,7 @@ import (
 )
 
 func Run(location_lists_path string, iterations int64) {
+	utils.PrintMemStats("START: Day1 Part1")
 	_, err := os.Stat(location_lists_path)
 	utils.Check(err, fmt.Sprintf("Stat(%s)", location_lists_path))
 
@@ -19,4 +20,5 @@ func Run(location_lists_path string, iterations int64) {
 	utils.Check(err, fmt.Sprintf("GetSumOfDistancesOfListsText(%s)", location_lists_path))
 
 	utils.PrintTotal("Total Distance", results.Sum_of_distances, results.Elapseds)
+	utils.PrintMemStats_GC_Repeat("END  : Day1 Part1")
 }

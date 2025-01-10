@@ -3,12 +3,14 @@ use crate::utils;
 use lazy_static::lazy_static;
 use std::{
     error::Error,
-    iter,
     sync::Mutex,
     time::{Duration, SystemTime},
 };
 
 use super::web::{LocationPair, SumOfDistancesResults};
+
+/// Any filters defined in `mod filters` are accessible in your template documents.
+use thousands::Separable;
 
 // Define a global shared state for storing location lists
 lazy_static! {
@@ -27,7 +29,7 @@ pub fn get_sum_of_distances_of_lists_text_repeats(
     iterations: u32,
 ) -> Result<SumOfDistancesResults, Box<dyn Error>> {
 	if iterations > 1 {
-		println!("Iterations: {} ... all timings shown below are averages", iterations)
+		println!("Iterations: {} ... all timings shown below are averages", iterations.separate_with_commas())
 	}
     let mut results = SumOfDistancesResults {
         sorted_location_pairs: vec![],
@@ -45,12 +47,12 @@ pub fn get_sum_of_distances_of_lists_text_repeats(
 
         for d in &results.elapseds {
             match d.name.as_str() {
-                "split" => split_ns += d.elapsed.unwrap().as_nanos(),
-                "sort1" => sort1_ns += d.elapsed.unwrap().as_nanos(),
-                "sort2" => sort2_ns += d.elapsed.unwrap().as_nanos(),
-                "split and sort" => split_and_sort_ns += d.elapsed.unwrap().as_nanos(),
-                "calculate distance" => calculate_ns += d.elapsed.unwrap().as_nanos(),
-                "total" => total_ns += d.elapsed.unwrap().as_nanos(),
+                "split" => split_ns += d.elapsed.as_nanos(),
+                "sort1" => sort1_ns += d.elapsed.as_nanos(),
+                "sort2" => sort2_ns += d.elapsed.as_nanos(),
+                "split and sort" => split_and_sort_ns += d.elapsed.as_nanos(),
+                "calculate distance" => calculate_ns += d.elapsed.as_nanos(),
+                "total" => total_ns += d.elapsed.as_nanos(),
                 _ => panic!("unexpected elapsed name: {}", d.name.as_str()),
             }
         }
@@ -58,12 +60,12 @@ pub fn get_sum_of_distances_of_lists_text_repeats(
 
     for d in &mut results.elapseds {
         match d.name.as_str() {
-            "split" => d.elapsed = Some(Duration::from_nanos(split_ns as u64/ iterations as u64)),
-            "sort1" => d.elapsed = Some(Duration::from_nanos(sort1_ns as u64/ iterations as u64)),
-            "sort2" => d.elapsed = Some(Duration::from_nanos(sort2_ns as u64/ iterations as u64)),
-            "split and sort" => d.elapsed = Some(Duration::from_nanos(split_and_sort_ns as u64/ iterations as u64)),
-            "calculate distance" => d.elapsed = Some(Duration::from_nanos(calculate_ns as u64/ iterations as u64)),
-            "total" => d.elapsed = Some(Duration::from_nanos(total_ns as u64/ iterations as u64)),
+            "split" => d.elapsed = Duration::from_nanos(split_ns as u64/ iterations as u64),
+            "sort1" => d.elapsed = Duration::from_nanos(sort1_ns as u64/ iterations as u64),
+            "sort2" => d.elapsed = Duration::from_nanos(sort2_ns as u64/ iterations as u64),
+            "split and sort" => d.elapsed = Duration::from_nanos(split_and_sort_ns as u64/ iterations as u64),
+            "calculate distance" => d.elapsed = Duration::from_nanos(calculate_ns as u64/ iterations as u64),
+            "total" => d.elapsed = Duration::from_nanos(total_ns as u64/ iterations as u64),
             _ => panic!("unexpected elapsed name: {}", d.name.as_str()),
         }
     }
@@ -78,7 +80,7 @@ pub fn get_sum_of_distances_of_lists_text(
 
     let (sorted_list1, sorted_list2, split_elapsed, sort1_elapsed, sort2_elapsed, _) =
         utils::split_and_sort_lists(&lists_text).expect("failed to split and sort lists");
-    let split_sort_elapsed = start.elapsed().ok();
+    let split_sort_elapsed = start.elapsed()?;
 
     let mut results =
         get_sum_of_distances(sorted_list1, sorted_list2).expect("failed to calculate distances");
@@ -117,7 +119,7 @@ pub fn get_sum_of_distances_of_lists_text(
 
     results.elapseds.push(utils::NamedElapsed {
         name: "total".to_string(),
-        elapsed: start.elapsed().ok(),
+        elapsed: start.elapsed()?,
     });
 
     Ok(results)
@@ -146,7 +148,7 @@ pub fn get_sum_of_distances(
     }
     results.elapseds.push(utils::NamedElapsed {
         name: "calculate distance".to_string(),
-        elapsed: start.elapsed().ok(),
+        elapsed: start.elapsed()?,
     });
     Ok(results)
 }

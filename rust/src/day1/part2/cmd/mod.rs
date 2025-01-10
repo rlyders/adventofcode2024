@@ -1,10 +1,11 @@
 use std::{error::Error, fs, path::Path};
 
-use crate::utils;
+use crate::utils::{self, system::print_mem_stats};
 
 use super::engine::similarity_scores_processor_repeats;
 
 pub fn run(location_lists_path: String, iterations: u32) -> Result<(), Box<dyn Error>> {
+    print_mem_stats("START: Day1 Part2".to_string());
 	let _ = Path::new(&location_lists_path).exists();
 
     fs::exists(&location_lists_path).expect(format!("file does not exist: {}", location_lists_path).as_str());
@@ -15,5 +16,6 @@ pub fn run(location_lists_path: String, iterations: u32) -> Result<(), Box<dyn E
 
 	utils::print_total("Total Similarity".to_string(), results.total_similarity_score, results.elapseds);
 	
+    print_mem_stats("END  : Day1 Part2".to_string());
 	Ok(())
 }
