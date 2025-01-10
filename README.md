@@ -74,32 +74,40 @@ Directory exists: rust
 prog=./target/release/aoc24
 
 ------------- Run with timing -------------
-Iterations: 50000 ... all timings shown below are averages
+# [PID  60321] START: main       : RAM: 3.2 MB   (resident: 1.1 MB   share: 1.0 MB   code: 340.0 KB data: 368.0 KB)
+# [PID  60321] START: Day1       : RAM: 3.2 MB   (resident: 1.1 MB   share: 1.0 MB   code: 340.0 KB data: 368.0 KB)
+# [PID  60321] START: Day1 Part1 : RAM: 3.2 MB   (resident: 1.1 MB   share: 1.0 MB   code: 340.0 KB data: 368.0 KB)
+Iterations: 50,000 ... all timings shown below are averages
 ------------------------------------------------------------------
       Total Distance:  2,970,687 [raw:    2970687]
 -- Timings: --
-                    split:  0 ms [     70 μs;     70,580 ns]
-                    sort1:  0 ms [     10 μs;     10,244 ns]
-                    sort2:  0 ms [      9 μs;      9,849 ns]
-           split and sort:  0 ms [     90 μs;     90,876 ns]
-       calculate distance:  0 ms [      1 μs;      1,993 ns]
-                    total:  0 ms [     93 μs;     93,258 ns]
+                    split:  0 ms [     73 μs;         73 ns]
+                    sort1:  0 ms [     10 μs;         10 ns]
+                    sort2:  0 ms [      9 μs;          9 ns]
+           split and sort:  0 ms [     93 μs;         93 ns]
+       calculate distance:  0 ms [      1 μs;          1 ns]
+                    total:  0 ms [     95 μs;         95 ns]
 ------------------------------------------------------------------
-Iterations: 50000 ... all timings shown below are averages
+# [PID  60321] START: Day1 Part1 : RAM: 3.2 MB   (resident: 1.1 MB   share: 1.0 MB   code: 340.0 KB data: 368.0 KB)
+# [PID  60321] START: Day1 Part2 : RAM: 3.2 MB   (resident: 1.1 MB   share: 1.0 MB   code: 340.0 KB data: 368.0 KB)
+Iterations: 50,000 ... all timings shown below are averages
 ------------------------------------------------------------------
     Total Similarity: 23,963,899 [raw:   23963899]
 -- Timings: --
-                    split:  0 ms [     72 μs;     72,219 ns]
-                    sort1:  0 ms [     10 μs;     10,791 ns]
-                    sort2:  0 ms [     10 μs;     10,272 ns]
-           split and sort:  0 ms [     93 μs;     93,485 ns]
-     calculate similarity:  0 ms [      6 μs;      6,276 ns]
-                    total:  0 ms [    106 μs;    106,720 ns]
+                    split:  0 ms [     74 μs;         74 ns]
+                    sort1:  0 ms [     10 μs;         10 ns]
+                    sort2:  0 ms [     10 μs;         10 ns]
+           split and sort:  0 ms [     95 μs;         95 ns]
+     calculate similarity:  0 ms [      5 μs;          5 ns]
+                    total:  0 ms [    103 μs;        103 ns]
 ------------------------------------------------------------------
+# [PID  60321] END  : Day1 Part2 : RAM: 3.2 MB   (resident: 1.1 MB   share: 1.0 MB   code: 340.0 KB data: 368.0 KB)
+# [PID  60321] END  : Day1       : RAM: 3.2 MB   (resident: 1.1 MB   share: 1.0 MB   code: 340.0 KB data: 368.0 KB)
+# [PID  60321] END  : main       : RAM: 3.2 MB   (resident: 1.1 MB   share: 1.0 MB   code: 340.0 KB data: 368.0 KB)
 
-real    0m9.679s
-user    0m9.679s
-sys     0m0.000s
+real    0m9.894s
+user    0m10.048s
+sys     0m0.010s
 run: OK
 -------------------------------------------
 ```
@@ -131,33 +139,41 @@ Directory exists: go
 prog=./app/cmd/bin/aoc24
 
 ------------- Run with timing -------------
+# [PID 61404 ] START: main       : RAM: 158.3 KB of avail:   6.3 MB [GC cummulative: 158.3 KB, cycles:    0]
 location lists file: ../data/day1/lists.txt
-Iterations: 50000 ... all timings shown below are averages
+# [PID 61404 ] START: Day1 Part1 : RAM: 159.2 KB of avail:   6.3 MB [GC cummulative: 159.2 KB, cycles:    0]
+Iterations: 50,000 ... all timings shown below are averages
 ------------------------------------------------------------------
            Total Distance:  2,970,687 [raw:    2970687]
 -- Timings: --
-                    split:  0 ms [    122 μs;     122,421 ns]
-                    sort1:  0 ms [     92 μs;      92,305 ns]
-                    sort2:  0 ms [     69 μs;      69,879 ns]
-           split and sort:  0 ms [    284 μs;     284,865 ns]
-       calculate distance:  0 ms [      9 μs;       9,321 ns]
-                    total:  0 ms [    294 μs;     294,958 ns]
+                    split:  0 ms [    143 μs;     143,880 ns]
+                    sort1:  0 ms [     43 μs;      43,180 ns]
+                    sort2:  0 ms [     38 μs;      38,948 ns]
+           split and sort:  0 ms [    226 μs;     226,220 ns]
+       calculate distance:  0 ms [      7 μs;       7,975 ns]
+                    total:  0 ms [    234 μs;     234,707 ns]
 ------------------------------------------------------------------
-Iterations: 50000 ... all timings shown below are averages
+# [PID 61404 ] END  : Day1 Part1 : RAM:   2.4 MB of avail:  15.7 MB [GC cummulative:   5.5 GB, cycles: 1769]
+# [PID 61404 ] POST : GarbageCol : RAM: 157.8 KB of avail:  15.7 MB [GC cummulative:   5.5 GB, cycles: 1770]
+# [PID 61404 ] START: Day1 Part2 : RAM: 158.9 KB of avail:  15.7 MB [GC cummulative:   5.5 GB, cycles: 1770]
+Iterations: 50,000 ... all timings shown below are averages
 ------------------------------------------------------------------
          Total Similarity: 23,963,899 [raw:   23963899]
 -- Timings: --
-                    split:  0 ms [    145 μs;     145,288 ns]
-                    sort1:  0 ms [     86 μs;      86,922 ns]
-                    sort2:  0 ms [     76 μs;      76,334 ns]
-           split and sort:  0 ms [    308 μs;     308,765 ns]
-     calculate similarity:  0 ms [     37 μs;      37,587 ns]
-                    total:  0 ms [    347 μs;     347,020 ns]
+                    split:  0 ms [    379 μs;     379,057 ns]
+                    sort1:  0 ms [     44 μs;      44,878 ns]
+                    sort2:  0 ms [     39 μs;      39,802 ns]
+           split and sort:  0 ms [    464 μs;     464,219 ns]
+     calculate similarity:  0 ms [    165 μs;     165,410 ns]
+                    total:  0 ms [    632 μs;     632,091 ns]
 ------------------------------------------------------------------
+# [PID 61404 ] END  : Day1 Part2 : RAM: 466.2 KB of avail:  15.8 MB [GC cummulative:  11.7 GB, cycles: 3769]
+# [PID 61404 ] END  : main       : RAM: 466.5 KB of avail:  15.8 MB [GC cummulative:  11.7 GB, cycles: 3769]
+# [PID 61404 ] POST : GarbageCol : RAM: 157.8 KB of avail:  15.8 MB [GC cummulative:  11.7 GB, cycles: 3770]
 
-real    0m35.688s
-user    0m35.584s
-sys     0m2.609s
+real    0m29.041s
+user    0m29.634s
+sys     0m2.468s
 run: OK
 -------------------------------------------
 ```
