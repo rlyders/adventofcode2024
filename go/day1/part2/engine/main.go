@@ -55,27 +55,27 @@ func GetSimilarityScoreOfListsTextRepeated(lists string, iterations int64) (Simi
 				sort2Elapsed += d.Elapsed.Nanoseconds()
 			case "split and sort":
 				splitSortElapsed += d.Elapsed.Nanoseconds()
-			case "calculate distance":
+			case "calculate similarity":
 				calculateElapsed += d.Elapsed.Nanoseconds()
 			case "total":
 				totalElapsed += d.Elapsed.Nanoseconds()
 			}
 		}
 	}
-	for _, d := range results.Elapseds {
+	for i, d := range results.Elapseds {
 		switch d.Name {
 		case "split":
-			d.Elapsed = time.Duration(splitElapsed / iterations)
+			results.Elapseds[i].Elapsed = time.Duration(splitElapsed / iterations)
 		case "sort1":
-			d.Elapsed = time.Duration(sort1Elapsed / iterations)
+			results.Elapseds[i].Elapsed = time.Duration(sort1Elapsed / iterations)
 		case "sort2":
-			d.Elapsed = time.Duration(sort2Elapsed / iterations)
+			results.Elapseds[i].Elapsed = time.Duration(sort2Elapsed / iterations)
 		case "split and sort":
-			d.Elapsed = time.Duration(splitSortElapsed / iterations)
+			results.Elapseds[i].Elapsed = time.Duration(splitSortElapsed / iterations)
 		case "calculate similarity":
-			d.Elapsed = time.Duration(calculateElapsed / iterations)
+			results.Elapseds[i].Elapsed = time.Duration(calculateElapsed / iterations)
 		case "total":
-			d.Elapsed = time.Duration(totalElapsed / iterations)
+			results.Elapseds[i].Elapsed = time.Duration(totalElapsed / iterations)
 		}
 	}
 	return results, nil
@@ -107,6 +107,9 @@ func GetSimilarityScoreOfSortedLists(sorted_locations_a []uint32, sorted_locatio
 	var b_idx uint32
 	var last_a uint32
 	var similarityScore *SimilarityScore
+	// performance optimization: pre-alloc memory for slice of SimilarityScore to avoid repeated resizing of the underlying array for each append
+	results.Similarity_scores = make([]SimilarityScore, len(sorted_locations_a))
+
 	for i, a := range sorted_locations_a {
 		// if this `a` value is *not* the same as the last
 		// *or* this is first iteration of this loop
@@ -115,10 +118,8 @@ func GetSimilarityScoreOfSortedLists(sorted_locations_a []uint32, sorted_locatio
 			// find all locations in list B that match the location from list A
 			similarityScore = countMatchingValuesInList(a, &b_idx, sorted_locations_b)
 		}
-		results.Similarity_scores = append(results.Similarity_scores, *similarityScore)
-	}
-	for _, s := range results.Similarity_scores {
-		results.Total_similarity_score += s.Similarity_score
+		results.Similarity_scores[i] = *similarityScore
+		results.Total_similarity_score += similarityScore.Similarity_score
 	}
 	results.Elapseds = append(results.Elapseds, utils.NamedElapsed{Name: "calculate similarity", Elapsed: time.Since(start)})
 	return results, nil

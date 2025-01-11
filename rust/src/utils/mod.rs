@@ -1,4 +1,6 @@
 pub mod system;
+pub mod system_windows;
+pub mod system_linux;
 
 use std::time::{Duration, SystemTime};
 use std::{env, fs};
@@ -78,7 +80,6 @@ pub fn arg_or_default_path(arg_num: usize, default_paths: Vec<String>) -> Result
     let path: &String;
     
     let args: Vec<String>  = env::args().skip(1).collect();
-
     let path_opt =args.get(arg_num-1);
     if path_opt.is_some() {
         path = path_opt.unwrap();

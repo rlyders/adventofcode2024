@@ -43,7 +43,7 @@ func GetSimilarityScoreOfListsTextRepeated(lists string, iterations int64) (SumO
 	var totalElapsed int64
 	for range iterations {
 		results, err = GetSumOfDistancesOfListsText(lists)
-		utils.Check(err, "GetSimilarityScoreOfListsText")
+		utils.Check(err, "GetSumOfDistancesOfListsText")
 		for _, d := range results.Elapseds {
 			switch d.Name {
 			case "split":
@@ -61,23 +61,23 @@ func GetSimilarityScoreOfListsTextRepeated(lists string, iterations int64) (SumO
 			}
 		}
 	}
-	for _, d := range results.Elapseds {
+	for i, d := range results.Elapseds {
 		switch d.Name {
 		case "split":
-			d.Elapsed = time.Duration(splitElapsed / iterations)
+			results.Elapseds[i].Elapsed = time.Duration(splitElapsed / iterations)
 		case "sort1":
-			d.Elapsed = time.Duration(sort1Elapsed / iterations)
+			results.Elapseds[i].Elapsed = time.Duration(sort1Elapsed / iterations)
 		case "sort2":
-			d.Elapsed = time.Duration(sort2Elapsed / iterations)
+			results.Elapseds[i].Elapsed = time.Duration(sort2Elapsed / iterations)
 		case "split and sort":
-			d.Elapsed = time.Duration(splitSortElapsed / iterations)
+			results.Elapseds[i].Elapsed = time.Duration(splitSortElapsed / iterations)
 		case "calculate distance":
-			d.Elapsed = time.Duration(calculateElapsed / iterations)
+			results.Elapseds[i].Elapsed = time.Duration(calculateElapsed / iterations)
 		case "total":
-			d.Elapsed = time.Duration(totalElapsed / iterations)
+			results.Elapseds[i].Elapsed = time.Duration(totalElapsed / iterations)
 		}
 	}
-	return results, nil
+	return results, nil // FIXME all
 }
 
 func GetSumOfDistancesOfListsText(lists string) (SumOfDistancesResults, error) {
@@ -103,6 +103,8 @@ func GetSumOfDistances(list1 []uint32, list2 []uint32) (SumOfDistancesResults, e
 	start := time.Now()
 
 	var results SumOfDistancesResults
+	// performance optimization: pre-alloc memory for slice of LocationPairs to avoid repeated resizing of the underlying array for each append
+	results.Sorted_location_pairs = make([]LocationPair, len(list1))
 	for i := range list1 {
 		int1 := list1[i]
 		int2 := list2[i]
@@ -118,7 +120,7 @@ func GetSumOfDistances(list1 []uint32, list2 []uint32) (SumOfDistancesResults, e
 			Location_b: list2[i],
 			Distance:   distance,
 		}
-		results.Sorted_location_pairs = append(results.Sorted_location_pairs, locationPair)
+		results.Sorted_location_pairs[i] = locationPair
 		results.Sum_of_distances = results.Sum_of_distances + locationPair.Distance
 	}
 	results.Elapseds = append(results.Elapseds, utils.NamedElapsed{Name: "calculate distance", Elapsed: time.Since(start)})

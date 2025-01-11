@@ -1,37 +1,19 @@
-use procinfo::pid::statm_self;
-use std::{
-    fmt::{self, Debug},
-    process,
-};
+use std::env::consts::ARCH;
+use std::env::consts::OS;
+use std::fmt::{self, Debug};
 use sysconf::pagesize;
+
+#[cfg(target_os = "windows")]
+use crate::utils::system_windows::get_os_mem_stats_windows;
 
 const BYTES_PER_KB: usize = 1024;
 
-use sysinfo::System;
-
 pub fn print_mem_stats(title: String) {
-    // let s = System::new_all();
-    // println!("used: {}", s.used_memory() /1024 /1024);
-    // println!("avail: {} kB", s.available_memory());
-    // println!("CPU: {}", s.cpus().get(0).unwrap().brand());
-    // println!("CPU usage: {}", s.global_cpu_usage());
-    // println!("cores: {}", s.physical_core_count().unwrap());
+    #[cfg(target_os = "windows")]
+    super::system_windows::print_mem_stats_windows(title);
 
-    // details on values in statm: https://www.kernel.org/doc/Documentation/filesystems/proc.txt
-    let r = statm_self();
-    match r {
-        Ok(s) => println!(
-            "# [PID {:6}] {:-18}: RAM: {:8} (resident: {:8} share: {:8} code: {:8} data: {:8})",
-            process::id(),
-            title,
-            pages_str(s.size),
-            pages_str(s.resident),
-            pages_str(s.share),
-            pages_str(s.text),
-            pages_str(s.data)
-        ),
-        Err(e) => eprintln!("failed to get results from statm: {}", e),
-    }
+    #[cfg(target_os = "linux")]
+    super::system_linux::print_mem_stats_linux(title);
 }
 
 pub fn pages_str(pages: usize) -> String {
@@ -68,7 +50,7 @@ pub fn get_byte_units_code(byte_unit: ByteUnit) -> String {
 }
 
 pub fn bytes_str(bytes: usize, bytes_per_opt: Option<usize>) -> String {
-    let bytes_per: usize = bytes_per_opt.unwrap_or(1024);
+    let bytes_per: usize = bytes_per_opt.unwrap_or(1);
     let mut units_idx: usize = 0; // index to ram_units array
     let mut units: f32 = (bytes * bytes_per) as f32;
     while units > BYTES_PER_KB as f32 && units_idx < 4 {
@@ -77,4 +59,30 @@ pub fn bytes_str(bytes: usize, bytes_per_opt: Option<usize>) -> String {
     }
     let s = format!("{:.1} {}", units, BYTE_UNIT_CODES.get(units_idx).unwrap());
     s
+}
+
+pub fn get_os_mem_stats() -> String {
+    #[cfg(target_os = "windows")]
+    return get_os_mem_stats_windows();
+
+    #[cfg(target_os = "linux")]
+    return "? RAM";
+}
+
+pub fn print_os_arch() {
+    println!("{} {} {}", OS, ARCH, get_os_mem_stats());
+    // hostStat, _ := host.Info()
+    // cpuStat, _ := cpu.Info()
+    // vmStat, _ := mem.VirtualMemory()
+    // diskStat, _ := disk.Usage("\\") // If you're in Unix change this "\\" for "/"
+
+    // info = new(SysInfo)
+
+    // // info.Hostname = hostStat.Hostname
+    // info.Platform = hostStat.Platform;
+    // info.CPU = cpuStat[0].ModelName;
+    // info.RAM = vmStat.Total / 1024 / 1024;
+    // info.Disk = diskStat.Total / 1024 / 1024
+
+    // fmt.Printf("OS: %s: ARCH: %s %s %s GB RAM\n", std::env::consts::OS, std::env::consts::ARCH, info.Platform, info.CPU, bytes_str(info.RAM*1024, None));
 }

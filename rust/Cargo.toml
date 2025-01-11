@@ -14,9 +14,19 @@ serde_json = "1.0.134"
 thousands = "0.2.0"
 serde_yaml = "0.9.34"
 memory-stats = "1.0.0"
-procinfo = "0.4.2"
+procinfo = { version ="0.4.2", optional = true}
 sysconf = "0.3.4"
 sysinfo = "0.33.1"
+winapi = "0.3.9"
+
+[dependencies.windows]
+version = "0.48.0"    # Current version as of writing
+features = [
+    "Win32_Foundation",
+    "Win32_System_ProcessStatus",
+    "Win32_System_Threading",
+    "Win32_UI_WindowsAndMessaging",
+]
 
 #[[bin]]
 ## full-stack web app

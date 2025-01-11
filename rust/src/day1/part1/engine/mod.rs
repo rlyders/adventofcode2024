@@ -139,12 +139,12 @@ pub fn get_sum_of_distances(
     for (i, a) in sorted_list1.iter().enumerate() {
         let b = sorted_list2.get(i).unwrap();
         let location_pair = LocationPair {
-            location_a: a.clone() as u32,
-            location_b: b.clone() as u32,
+            location_a: *a,
+            location_b: *b,
             distance: a.abs_diff(*b),
         };
-        results.sorted_location_pairs.push(location_pair.clone());
         results.sum_of_distances += location_pair.distance as u32;
+        results.sorted_location_pairs.push(location_pair);
     }
     results.elapseds.push(utils::NamedElapsed {
         name: "calculate distance".to_string(),
