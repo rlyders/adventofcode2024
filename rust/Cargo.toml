@@ -14,7 +14,7 @@ serde_json = "1.0.134"
 thousands = "0.2.0"
 serde_yaml = "0.9.34"
 memory-stats = "1.0.0"
-procinfo = { version ="0.4.2", optional = true}
+procinfo = { version = "0.4.2", optional = true }
 sysconf = "0.3.4"
 sysinfo = "0.33.1"
 winapi = "0.3.9"
@@ -50,3 +50,6 @@ harness = true         # Use libtest harness.
 edition = "2021"       # The edition of the target.
 crate-type = ["lib"]   # The crate types to generate.
 required-features = [] # Features required to build this target (N/A for lib).
+
+[features]
+procinfo = ["dep:procinfo"]

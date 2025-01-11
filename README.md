@@ -66,7 +66,7 @@ The following script runs the rust command-line app with the default data file r
 ./run.sh rust "" 50000
 ```
 
-Sample output ** Running under WSL2 Ubuntu on Windows 11 **:
+Sample output ** Running rust version under WSL2 Ubuntu on Windows 11 **:
 ```log
 $ ./run.sh rust "" 50000
 Valid runtime: rust
@@ -112,7 +112,7 @@ run: OK
 -------------------------------------------
 ```
 
-Sample output ** Running under Windows 11 via gitbash **:
+Sample output ** Running rust version under Windows 11 via gitbash **:
 ```log
 $ ./run.sh rust "" 50000
 Valid runtime: rust
@@ -159,6 +159,45 @@ run: OK
 -------------------------------------------
 ```
 
+Sample output ** Running rust version under MacOS on M4 Mini **:
+```log
+% ./run.sh rust "" 50000 
+Valid runtime: rust
+Directory exists: rust
+prog=./target/release/aoc24
+
+------------- Run with timing -------------
+macos aarch64 ? RAM
+Iterations: 50,000 ... all timings shown below are averages
+------------------------------------------------------------------
+      Total Distance:  2,970,687 [raw:    2970687]
+-- Timings: --
+                    split:  0 ms [     23 μs;         23 ns]
+                    sort1:  0 ms [      4 μs;          4 ns]
+                    sort2:  0 ms [      3 μs;          3 ns]
+           split and sort:  0 ms [     31 μs;         31 ns]
+       calculate distance:  0 ms [      0 μs;          0 ns]
+                    total:  0 ms [     32 μs;         32 ns]
+------------------------------------------------------------------
+Iterations: 50,000 ... all timings shown below are averages
+------------------------------------------------------------------
+    Total Similarity: 23,963,899 [raw:   23963899]
+-- Timings: --
+                    split:  0 ms [     23 μs;         23 ns]
+                    sort1:  0 ms [      4 μs;          4 ns]
+                    sort2:  0 ms [      3 μs;          3 ns]
+           split and sort:  0 ms [     31 μs;         31 ns]
+     calculate similarity:  0 ms [      1 μs;          1 ns]
+                    total:  0 ms [     32 μs;         32 ns]
+------------------------------------------------------------------
+
+real    0m3.335s
+user    0m3.323s
+sys     0m0.010s
+run: OK
+-------------------------------------------
+```
+
 # go-lang version of app
 
 For go-lang, I've completed Day 1 both Parts One and Two both as a command-line app and as a full-stack web-app using [HTMX](https://htmx.org/) and [Alpine.js](https://alpinejs.dev/).
@@ -177,7 +216,7 @@ The following script runs the go-lang command-line app with the default data fil
 ./run.sh go "" 50000
 ```
 
-Sample output ** Running under Windows 11 via gitbash **:
+Sample output ** Running go version under Windows 11 via gitbash **:
 
 ```log
 $ ./run.sh go "" 50000
@@ -222,6 +261,54 @@ Iterations: 50,000 ... all timings shown below are averages
 real    0m23.976s
 user    0m0.031s
 sys     0m0.015s
+run: OK
+-------------------------------------------
+```
+
+Sample output ** Running go version under MacOS on M4 Mini **:
+```log
+% ./run.sh go "" 50000  
+Valid runtime: go
+Directory exists: go
+prog=./app/cmd/bin/aoc24
+
+------------- Run with timing -------------
+darwin: darwin arm64  CPU 12 %, 13.2 GB of 24.0 GB RAM (free: 110.6 MB)
+# [PID 29955 ] START: main       : RAM: 368.2 KB of avail:   6.6 MB [GC cummulative: 368.2 KB, cycles:    0]
+location lists file: ../data/day1/lists.txt
+# [PID 29955 ] START: Day1 Part1 : RAM: 368.8 KB of avail:   6.6 MB [GC cummulative: 368.8 KB, cycles:    0]
+Iterations: 50,000 ... all timings shown below are averages
+------------------------------------------------------------------
+           Total Distance:  2,970,687 [raw:    2970687]
+-- Timings: --
+                    split:  0 ms [     49 μs;      49,003 ns]
+                    sort1:  0 ms [      8 μs;       8,638 ns]
+                    sort2:  0 ms [      7 μs;       7,830 ns]
+           split and sort:  0 ms [     65 μs;      65,572 ns]
+       calculate distance:  0 ms [      1 μs;       1,866 ns]
+                    total:  0 ms [     67 μs;      67,734 ns]
+------------------------------------------------------------------
+# [PID 29955 ] END  : Day1 Part1 : RAM:   2.8 MB of avail:  24.2 MB [GC cummulative:   3.4 GB, cycles:  985]
+# [PID 29955 ] POST : GarbageCol : RAM: 233.3 KB of avail:  24.2 MB [GC cummulative:   3.4 GB, cycles:  986]
+# [PID 29955 ] START: Day1 Part2 : RAM: 234.9 KB of avail:  24.2 MB [GC cummulative:   3.4 GB, cycles:  986]
+Iterations: 50,000 ... all timings shown below are averages
+------------------------------------------------------------------
+         Total Similarity: 23,963,899 [raw:   23963899]
+-- Timings: --
+                    split:  0 ms [     48 μs;      48,996 ns]
+                    sort1:  0 ms [      8 μs;       8,727 ns]
+                    sort2:  0 ms [      7 μs;       7,877 ns]
+           split and sort:  0 ms [     65 μs;      65,701 ns]
+     calculate similarity:  0 ms [     12 μs;      12,375 ns]
+                    total:  0 ms [     78 μs;      78,286 ns]
+------------------------------------------------------------------
+# [PID 29955 ] END  : Day1 Part2 : RAM:   1.4 MB of avail:  24.3 MB [GC cummulative:   7.5 GB, cycles: 2186]
+# [PID 29955 ] END  : main       : RAM:   1.4 MB of avail:  24.3 MB [GC cummulative:   7.5 GB, cycles: 2186]
+# [PID 29955 ] POST : GarbageCol : RAM: 235.6 KB of avail:  24.3 MB [GC cummulative:   7.5 GB, cycles: 2187]
+
+real    0m8.354s
+user    0m7.447s
+sys     0m0.201s
 run: OK
 -------------------------------------------
 ```

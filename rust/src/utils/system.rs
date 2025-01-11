@@ -66,7 +66,10 @@ pub fn get_os_mem_stats() -> String {
     return get_os_mem_stats_windows();
 
     #[cfg(target_os = "linux")]
-    return "? RAM";
+    return "? RAM".to_string();
+
+    #[cfg(target_os = "macos")]
+    return "? RAM".to_string();
 }
 
 pub fn print_os_arch() {
