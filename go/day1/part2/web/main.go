@@ -23,7 +23,7 @@ func init() {
 	currentDir := filepath.Dir(filename)
 
 	pattern := filepath.Join(currentDir, "templates", "*.html")
-	tmpl, err = template.New("").Funcs(utils.GetFormatUInt32FuncMap()).Funcs(utils.GetFormatElapsedMillisecondsFuncMap()).Funcs(utils.GetFormatElapsedMicrosecondsFuncMap()).Funcs(utils.GetFormatElapsedNanosecondsFuncMap()).ParseGlob(pattern)
+	tmpl, err = template.New("").Funcs(utils.GetFormatUInt32FuncMap()).Funcs(utils.GetFormatElapsedMillisecondsFuncMap()).Funcs(utils.GetFormatElapsedMicrosecondsFuncMap()).Funcs(utils.GetFormatElapsedNanosecondsFuncMap()).Funcs(utils.GetFormatSysInfoFuncMap()).ParseGlob(pattern)
 	if err != nil {
 		log.Fatalf("Error loading templates from '%s': %s", pattern, err.Error())
 	}

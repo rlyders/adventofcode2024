@@ -120,6 +120,11 @@ func GetFormatElapsedMicrosecondsFuncMap() template.FuncMap {
 	}
 }
 
+func GetFormatSysInfoFuncMap() template.FuncMap {
+	return template.FuncMap{
+		"FormatSysInfo": FormatSysInfo,
+	}
+}
 func GetFormatElapsedNanosecondsFuncMap() template.FuncMap {
 	return template.FuncMap{
 		"FormatElapsedNanoseconds": FormatElapsedNanoseconds,
@@ -146,6 +151,10 @@ func FormatElapsedMilliseconds(elapsed time.Duration) string {
 
 func FormatElapsedMicroseconds(elapsed time.Duration) string {
 	return englishPrinter.Sprintf("%v", elapsed.Microseconds())
+}
+
+func FormatSysInfo(dummy string) string {
+	return getSysInfo()
 }
 
 func FormatElapsedNanoseconds(elapsed time.Duration) string {

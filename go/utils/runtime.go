@@ -55,7 +55,8 @@ func getMemoryFree() uint64 {
 	return memory.Free
 }
 
-func PrintSysInfo() {
+// TODO Check if this works on Windows and Linux (it works on MacOS)
+func getSysInfo() string {
 	info := new(SysInfo)
 
 	hostStat, err := host.Info()
@@ -74,8 +75,15 @@ func PrintSysInfo() {
 
 	// info.Hostname = hostStat.Hostname
 	// info.Disk = diskStat.Total / 1024 / 1024
+	var os = runtime.GOOS
+	if runtime.GOOS == "darwin" {
+		os = "MacOS"
+	}
+	return fmt.Sprintf("%s on %s %s (%s %s) %d CPUs (%d%% used), %s RAM (%s used)\n", runtime.Version(), os, hostStat.PlatformVersion, hostStat.Platform, hostStat.KernelVersion, runtime.NumCPU(), getCpuUsage(), smartRamUnits(uint64(getMemoryUsed())), smartRamUnits(vmStat.Total))
+}
 
-	fmt.Printf("%s: %s %s %s CPU %d %%, %s of %s RAM (free: %s)\n", runtime.GOOS, info.Platform, runtime.GOARCH, info.CPU, getCpuUsage(), smartRamUnits(uint64(getMemoryUsed())), smartRamUnits(vmStat.Total), smartRamUnits(getMemoryFree()))
+func PrintSysInfo() {
+	println(getSysInfo())
 }
 
 func errHandler(err error) {
