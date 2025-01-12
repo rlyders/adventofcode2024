@@ -1,5 +1,5 @@
 pub mod system;
-pub mod system_windows;
+pub mod system_windows_n_macos;
 pub mod system_linux;
 
 use std::time::{Duration, SystemTime};

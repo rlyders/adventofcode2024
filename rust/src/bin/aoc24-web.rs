@@ -1,6 +1,6 @@
 use aoc24lib::day1::part1::web::{day1_part_one,sum_of_distances};
 use aoc24lib::day1::part2::web::{day1_part_two, similarity_scores};
-
+use aoc24lib::filters;
 use askama::Template;
 use axum::{
     response::Html,
@@ -48,6 +48,5 @@ pub async fn home() -> Html<String> {
     let f: std::fs::File = std::fs::File::open("../data/advent_of_code_2024.yaml").unwrap();
     let advent_of_code: AdventOfCode = serde_yaml::from_reader(f).unwrap();
     // println!("Read YAML string: {}", advent_of_code);
-
     Html(advent_of_code.render().unwrap())
 }

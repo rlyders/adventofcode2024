@@ -1,8 +1,8 @@
 use sysinfo::{Pid, System};
 use memory_stats::memory_stats;
 
-#[cfg(target_os = "windows")]
-pub fn get_os_mem_stats_windows() -> String {
+// #[cfg(target_os = "windows")]
+pub fn get_os_mem_stats_windows_n_macos() -> String {
     use crate::utils::system::bytes_str;
 
     let mut sys: System = System::new_all();
@@ -11,16 +11,13 @@ pub fn get_os_mem_stats_windows() -> String {
     sys.refresh_all();
 
     format!(
-        "{} {}; {} CPUs; {} of {} RAM",
-        System::name().unwrap(),
-        System::os_version().unwrap(),
-        sys.cpus().len(),
-        bytes_str(sys.used_memory() as usize, None), 
-        bytes_str(sys.total_memory() as usize, None)
+        "{} RAM ({} used)",
+        bytes_str(sys.total_memory() as usize, None),
+        bytes_str(sys.used_memory() as usize, None),
     )
 }
 
-#[cfg(target_os = "windows")]
+// #[cfg(target_os = "windows")]
 pub fn print_mem_stats_windows(title: String) {
     use crate::utils::system::bytes_str;
 
