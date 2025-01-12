@@ -3,6 +3,9 @@ use std::env::consts::OS;
 use std::fmt::{self, Debug};
 use sysconf::pagesize;
 use sysinfo::{Pid, System};
+use rustc_version_runtime::version;
+
+use crate::filters::rustc_version;
 
 use super::system_windows_n_macos::get_os_mem_stats_windows_n_macos;
 
@@ -76,7 +79,12 @@ pub fn get_os_mem_stats() -> String {
 
 // TODO check if this works on Windows/Linux
 pub fn get_os_info() -> String {
-    format!("{} {} {}", OS, get_system_info(), get_os_mem_stats())
+    
+    let mut os = OS;
+    if os == "macos" {
+        os = "MacOS"
+    }
+    format!("rust v{} on {} {} {}", version().to_string(), os, get_system_info(), get_os_mem_stats())
     // hostStat, _ := host.Info()
     // cpuStat, _ := cpu.Info()
     // vmStat, _ := mem.VirtualMemory()

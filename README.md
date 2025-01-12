@@ -161,13 +161,13 @@ run: OK
 
 Sample output ** Running rust version under MacOS on M4 Mini **:
 ```log
-% ./run.sh rust "" 50000 
+% ./run.sh rust "" 50000
 Valid runtime: rust
 Directory exists: rust
 prog=./target/release/aoc24
 
 ------------- Run with timing -------------
-macos aarch64 ? RAM
+rust v1.84.0 on MacOS 15.2 (Darwin 24.2.0) 10 CPUs 24.0 GB RAM (12.3 GB used)
 Iterations: 50,000 ... all timings shown below are averages
 ------------------------------------------------------------------
       Total Distance:  2,970,687 [raw:    2970687]
@@ -185,15 +185,15 @@ Iterations: 50,000 ... all timings shown below are averages
 -- Timings: --
                     split:  0 ms [     23 μs;         23 ns]
                     sort1:  0 ms [      4 μs;          4 ns]
-                    sort2:  0 ms [      3 μs;          3 ns]
-           split and sort:  0 ms [     31 μs;         31 ns]
-     calculate similarity:  0 ms [      1 μs;          1 ns]
+                    sort2:  0 ms [      4 μs;          4 ns]
+           split and sort:  0 ms [     32 μs;         32 ns]
+     calculate similarity:  0 ms [      2 μs;          2 ns]
                     total:  0 ms [     32 μs;         32 ns]
 ------------------------------------------------------------------
 
-real    0m3.335s
-user    0m3.323s
-sys     0m0.010s
+real    0m3.347s
+user    0m3.301s
+sys     0m0.137s
 run: OK
 -------------------------------------------
 ```
@@ -267,48 +267,49 @@ run: OK
 
 Sample output ** Running go version under MacOS on M4 Mini **:
 ```log
-% ./run.sh go "" 50000  
+% ./run.sh go "" 50000
 Valid runtime: go
 Directory exists: go
 prog=./app/cmd/bin/aoc24
 
 ------------- Run with timing -------------
-darwin: darwin arm64  CPU 12 %, 13.2 GB of 24.0 GB RAM (free: 110.6 MB)
-# [PID 29955 ] START: main       : RAM: 368.2 KB of avail:   6.6 MB [GC cummulative: 368.2 KB, cycles:    0]
+go1.23.4 on MacOS 15.2 (darwin 24.2.0) 10 CPUs (7% used), 11.8 GB RAM (24.0 GB used)
+
+# [PID 57119 ] START: main       : RAM: 408.0 KB of avail:   6.6 MB [GC cummulative: 408.0 KB, cycles:    0]
 location lists file: ../data/day1/lists.txt
-# [PID 29955 ] START: Day1 Part1 : RAM: 368.8 KB of avail:   6.6 MB [GC cummulative: 368.8 KB, cycles:    0]
+# [PID 57119 ] START: Day1 Part1 : RAM: 408.7 KB of avail:   6.6 MB [GC cummulative: 408.7 KB, cycles:    0]
 Iterations: 50,000 ... all timings shown below are averages
 ------------------------------------------------------------------
            Total Distance:  2,970,687 [raw:    2970687]
 -- Timings: --
-                    split:  0 ms [     49 μs;      49,003 ns]
-                    sort1:  0 ms [      8 μs;       8,638 ns]
-                    sort2:  0 ms [      7 μs;       7,830 ns]
-           split and sort:  0 ms [     65 μs;      65,572 ns]
-       calculate distance:  0 ms [      1 μs;       1,866 ns]
-                    total:  0 ms [     67 μs;      67,734 ns]
+                    split:  0 ms [     51 μs;      51,189 ns]
+                    sort1:  0 ms [      8 μs;       8,772 ns]
+                    sort2:  0 ms [      7 μs;       7,923 ns]
+           split and sort:  0 ms [     67 μs;      67,986 ns]
+       calculate distance:  0 ms [      1 μs;       1,897 ns]
+                    total:  0 ms [     70 μs;      70,176 ns]
 ------------------------------------------------------------------
-# [PID 29955 ] END  : Day1 Part1 : RAM:   2.8 MB of avail:  24.2 MB [GC cummulative:   3.4 GB, cycles:  985]
-# [PID 29955 ] POST : GarbageCol : RAM: 233.3 KB of avail:  24.2 MB [GC cummulative:   3.4 GB, cycles:  986]
-# [PID 29955 ] START: Day1 Part2 : RAM: 234.9 KB of avail:  24.2 MB [GC cummulative:   3.4 GB, cycles:  986]
+# [PID 57119 ] END  : Day1 Part1 : RAM:   1.6 MB of avail:  11.5 MB [GC cummulative:   3.4 GB, cycles:  987]
+# [PID 57119 ] POST : GarbageCol : RAM: 228.9 KB of avail:  11.5 MB [GC cummulative:   3.4 GB, cycles:  988]
+# [PID 57119 ] START: Day1 Part2 : RAM: 230.4 KB of avail:  11.5 MB [GC cummulative:   3.4 GB, cycles:  988]
 Iterations: 50,000 ... all timings shown below are averages
 ------------------------------------------------------------------
          Total Similarity: 23,963,899 [raw:   23963899]
 -- Timings: --
-                    split:  0 ms [     48 μs;      48,996 ns]
-                    sort1:  0 ms [      8 μs;       8,727 ns]
-                    sort2:  0 ms [      7 μs;       7,877 ns]
-           split and sort:  0 ms [     65 μs;      65,701 ns]
-     calculate similarity:  0 ms [     12 μs;      12,375 ns]
-                    total:  0 ms [     78 μs;      78,286 ns]
+                    split:  0 ms [     51 μs;      51,081 ns]
+                    sort1:  0 ms [      8 μs;       8,682 ns]
+                    sort2:  0 ms [      7 μs;       7,855 ns]
+           split and sort:  0 ms [     67 μs;      67,722 ns]
+     calculate similarity:  0 ms [     12 μs;      12,334 ns]
+                    total:  0 ms [     80 μs;      80,270 ns]
 ------------------------------------------------------------------
-# [PID 29955 ] END  : Day1 Part2 : RAM:   1.4 MB of avail:  24.3 MB [GC cummulative:   7.5 GB, cycles: 2186]
-# [PID 29955 ] END  : main       : RAM:   1.4 MB of avail:  24.3 MB [GC cummulative:   7.5 GB, cycles: 2186]
-# [PID 29955 ] POST : GarbageCol : RAM: 235.6 KB of avail:  24.3 MB [GC cummulative:   7.5 GB, cycles: 2187]
+# [PID 57119 ] END  : Day1 Part2 : RAM: 706.3 KB of avail:  11.5 MB [GC cummulative:   7.5 GB, cycles: 2190]
+# [PID 57119 ] END  : main       : RAM: 706.6 KB of avail:  11.5 MB [GC cummulative:   7.5 GB, cycles: 2190]
+# [PID 57119 ] POST : GarbageCol : RAM: 238.8 KB of avail:  11.5 MB [GC cummulative:   7.5 GB, cycles: 2191]
 
-real    0m8.354s
-user    0m7.447s
-sys     0m0.201s
+real    0m8.577s
+user    0m7.650s
+sys     0m0.218s
 run: OK
 -------------------------------------------
 ```
