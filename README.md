@@ -350,3 +350,18 @@ When ready, click [Calculate] to process the list of numbers shown.
 
 ## TODO: add unit tests
 
+## TODO: implementations ideas
+
+ * [AssemblyScript](https://www.assemblyscript.org/introduction.html)
+ * [Deno](https://deno.com/)
+    * [ApiDog](https://apidog.com/)
+ * [Leptos](https://leptos.dev/)
+ * [Qwik](https://qwik.dev/)
+ * [SvelteKit](https://svelte.dev/docs/kit)
+ * [Zig](https://ziglang.org/)
+    * [Unsafe Zig is Safer than Unsafe Rust](https://andrewkelley.me/post/unsafe-zig-safer-than-unsafe-rust.html)
+ * Safe C/C++
+    * [Carbon](https://github.com/carbon-language/carbon-lang)
+    * [Fil-C](https://github.com/pizlonator/llvm-project-deluge)
+    * [Circle](https://github.com/seanbaxter/circle)
+    * [TrapC](https://www.theregister.com/2024/11/12/trapc_memory_safe_fork/)
